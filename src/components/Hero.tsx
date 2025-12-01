@@ -6,38 +6,29 @@ import { trackButtonClick, trackVideoPlay } from '@/lib/analytics';
 const Hero: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null) as React.RefObject<HTMLElement>;
-  const hasPlayedRef = useRef(false);
 
   useEffect(() => {
     const section = sectionRef.current;
     const video = videoRef.current;
-    
+
     if (!section || !video) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // When hero section is fully/significantly visible (snapped into view)
-          if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
-            // Only play if we haven't played yet for this entry
-            if (!hasPlayedRef.current) {
-              video.currentTime = 0;
-              video.play().then(() => {
-                // Track video play event
-                trackVideoPlay('hero_video');
-              }).catch((error) => {
-                console.warn('Video autoplay failed:', error);
-              });
-              hasPlayedRef.current = true;
-            }
-          } else if (!entry.isIntersecting || entry.intersectionRatio < 0.3) {
-            // Reset flag when section is no longer visible
-            hasPlayedRef.current = false;
+          // When hero section is visible, play the video
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            video.play().catch((error) => {
+              console.warn('Video autoplay failed:', error);
+            });
+          } else {
+            // Pause when not visible to save resources
+            video.pause();
           }
         });
       },
       {
-        threshold: [0, 0.3, 0.7, 1],
+        threshold: [0, 0.5, 1],
         rootMargin: '0px'
       }
     );
@@ -56,82 +47,67 @@ const Hero: React.FC = () => {
         <video
           ref={videoRef}
           muted
+          loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'brightness(0.5) contrast(1.1)' }}
+          autoPlay
+          className="absolute inset-0 w-full h-full object-cover blur-background"
+          style={{ filter: 'brightness(0.5) contrast(1.1) grayscale(20%)' }}
         >
-          <source src="/ian.mp4" type="video/mp4" />
+          <source src="/website video.mp4" type="video/mp4" />
         </video>
-        {/* Dark overlay from right */}
-        <div className="absolute inset-0 bg-gradient-to-l from-black via-black/70 to-transparent"></div>
+        {/* Dark overlay with orange accent */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#FF9800]/10"></div>
       </div>
 
       {/* Content wrapper positioned correctly */}
-      <div className="w-full relative px-6 pt-[85px] pb-6 lg:pt-72 flex items-center justify-end h-full" style={{ zIndex: 10 }}>
+      <div className="w-full relative px-6 pt-[85px] pb-24 lg:pb-32 lg:pt-60 flex items-center justify-end h-full" style={{ zIndex: 10 }}>
         {/* Content aligned to the right */}
-        <div className="space-y-4 lg:space-y-8 lg:text-right max-w-2xl lg:mr-12 w-full">
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-3 lg:mb-6">
-              Ian McDonald
-              <br />
-              <span className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-normal text-gray-300">
-                AI App Entrepreneur & Builder
-              </span>
-            </h1>
+        <div className="space-y-4 lg:space-y-6 lg:text-right max-w-2xl lg:mr-12 w-full">
+          {/* Main Headline */}
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-4 lg:mb-6 uppercase">
+            Ariel Santos TechMentor
+          </h1>
+          <div className="h-1 w-32 bg-[#FF9800] mb-6 lg:ml-auto"></div>
 
-            {/* Subheadline */}
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-2xl leading-relaxed mb-3 lg:mb-8">
-              I teach non-technical people to build AI apps that actually work.
-              <br /><br />
-              From side hustles to enterprise platforms with 1,500+ users—I build in public and show others how to do the same.
-              <br /><br />
-              <span className="text-white font-semibold">Currently building: Launchbox</span>
-            </p>
+          {/* Subheadline */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 uppercase">
+            TechMentor | IT Consultant & Technology Strategist
+          </h2>
 
-            {/* CTAs */}
-            <div className="hidden lg:flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={() => {
-                  trackButtonClick('join_waitlist', 'hero_section');
-                  window.location.href = '/waitlist';
-                }}
-                className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-lg hover:shadow-red-600/50"
-              >
-                Join Launchbox Waitlist
-              </button>
-              <button
-                onClick={() => {
-                  trackButtonClick('free_class_button', 'hero_section');
-                  const launchbox = document.getElementById('launchbox');
-                  if (launchbox) {
-                    const rect = launchbox.getBoundingClientRect();
-                    const sectionHeight = window.innerHeight * 3;
-                    const scrollPosition = window.scrollY + rect.top + (sectionHeight / 3);
-                    // Scroll to 1/3 through Launchbox section (card 1 - Free Class)
-                    window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
-                  }
-                }}
-                className="px-8 py-4 border-2 border-gray-300 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-300"
-              >
-                Free Class
-              </button>
-              <button
-                onClick={() => {
-                  trackButtonClick('subscribe_newsletter', 'hero_section');
-                  const launchbox = document.getElementById('launchbox');
-                  if (launchbox) {
-                    const rect = launchbox.getBoundingClientRect();
-                    const sectionHeight = window.innerHeight * 3;
-                    const scrollPosition = window.scrollY + rect.top + (sectionHeight * 2 / 3);
-                    // Scroll to 2/3 through Launchbox section (card 2 - Newsletter)
-                    window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
-                  }
-                }}
-                className="px-8 py-4 border-2 border-gray-300 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-300"
-              >
-                Join My Newsletter
-              </button>
-            </div>
+          {/* Description */}
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed mb-8">
+            Making technology, career advancement, and lifelong learning accessible to all.
+            <br /><br />
+            <span className="text-white font-semibold">Empowering your business with expert IT solutions</span>
+          </p>
+
+          {/* CTAs */}
+          <div className="hidden lg:flex flex-col sm:flex-row gap-4 pt-4">
+            <button
+              onClick={() => {
+                const work = document.getElementById('work');
+                if (work) {
+                  work.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="px-8 py-4 bg-[#FF9800] text-black font-bold uppercase rounded-lg hover:bg-[#1A237E] hover:text-white transition-all duration-300 shadow-lg hover:shadow-[#FF9800]/50"
+            >
+              View Services
+            </button>
+            <button
+              onClick={() => {
+                trackButtonClick('contact_us', 'hero_section');
+                const footer = document.querySelector('footer');
+                if (footer) {
+                  footer.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="px-8 py-4 border-2 border-[#FF9800] text-white font-bold uppercase rounded-lg hover:bg-[#FF9800] hover:text-black transition-all duration-300"
+            >
+              Contact Us
+            </button>
+          </div>
 
         </div>
       </div>
@@ -139,7 +115,7 @@ const Hero: React.FC = () => {
       {/* Scroll Indicator */}
       <div className="absolute bottom-4 lg:bottom-12 left-0 right-0 flex justify-center animate-bounce" style={{ zIndex: 10 }}>
         <svg
-          className="w-6 h-6 text-gray-500"
+          className="w-6 h-6 text-[#FF9800]"
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"

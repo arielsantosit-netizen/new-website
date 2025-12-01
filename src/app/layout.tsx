@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Rosario } from "next/font/google";
+import { Inter, Montserrat, Poppins, Nunito } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import NavigationWrapper from "@/components/NavigationWrapper";
@@ -12,21 +12,44 @@ const inter = Inter({
   display: "swap",
 });
 
-const rosario = Rosario({
-  variable: "--font-rosario",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Ian McDonald — Build Real Apps Without a CS Degree | Launchbox",
-  description: "From barely making rent to building an AI platform with 1,500+ active users. I teach others to build their dreams the same way I built mine. No jargon, no fluff—just real apps.",
-  keywords: ["Ian McDonald", "Launchbox", "Launch Box", "AI for Business", "AI product builder", "build without CS degree", "practical AI", "AI training", "no-code AI", "ChatterCard", "Disruptiv Solutions"],
-  authors: [{ name: "Ian McDonald" }],
+  title: "Ariel Santos — TechMentor | IT Consultant & Technology Strategist",
+  description: "Air Force veteran, Navy Reservist, and IT professional with over a decade of experience. TechMentor provides comprehensive IT solutions including cloud computing, network architecture, web development, and IT support.",
+  keywords: ["Ariel Santos", "TechMentor", "IT Consultant", "Technology Strategist", "Cloud Computing", "Network Architecture", "Web Development", "IT Services", "IT Support", "Military Veteran", "Navy Reservist"],
+  authors: [{ name: "Ariel Santos" }],
+  icons: {
+    icon: [
+      { url: '/favicon 1.png', type: 'image/png' },
+      { url: '/ariel-santos-logo.jpg', sizes: '192x192', type: 'image/jpeg' },
+    ],
+    apple: [
+      { url: '/ariel-santos-logo.jpg', sizes: '180x180', type: 'image/jpeg' },
+    ],
+  },
   openGraph: {
-    title: "Ian McDonald — Build Real Apps Without a CS Degree",
-    description: "From barely making rent to building an AI platform with 1,500+ active users. Join Launchbox and build your first app in 30 days.",
+    title: "Ariel Santos — TechMentor | IT Consultant & Technology Strategist",
+    description: "Professional IT solutions from a military veteran with over a decade of experience. TechMentor specializes in cloud computing, network architecture, and technology strategy.",
     type: "website",
   },
 };
@@ -39,11 +62,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth snap-y overscroll-y-contain" style={{ scrollPaddingTop: '65px' }}>
       <body
-        className={`${inter.variable} ${rosario.variable} antialiased bg-black text-white`}
+        className={`${inter.variable} ${montserrat.variable} ${poppins.variable} ${nunito.variable} antialiased bg-black text-white`}
+        suppressHydrationWarning
       >
         {/* Google tag (gtag.js) */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-F7F28TQPBP"
+          src="https://www.googletagmanager.com/gtag/js?id=G-S5VCYRETYC"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -51,7 +75,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-F7F28TQPBP');
+            gtag('config', 'G-S5VCYRETYC');
           `}
         </Script>
         <NavigationWrapper />

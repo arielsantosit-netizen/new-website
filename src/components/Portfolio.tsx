@@ -10,56 +10,83 @@ const Portfolio: React.FC = () => {
 
   const projects = [
     {
-      title: "Launchbox",
-      tag: "Building in Public - Launching Q1 2026",
-      description: "A platform where non-technical people learn to build AI-powered apps.",
+      title: "Cloud Architecture & Mentoring",
+      tag: "Build & Learn Infrastructure",
+      description: "Designing scalable cloud solutions while training your team to manage and optimize them independently.",
       details: [
-        "Tools + Training + Community",
-        "Working AI tools from day one (not just tutorials)",
-        "Step-by-step builds you can actually finish",
-        "Community of builders who support each other"
+        "Cloud strategy workshops",
+        "Infrastructure-as-Code training",
+        "Secure cloud storage solutions",
+        "Cloud security best practices coaching"
       ],
-      traction: "50+ early members building together",
-      tech: "Multi-model AI • Firebase/Firestore • Custom tooling",
-      cta: "Join the Waitlist"
+      benefits: "Reduce infrastructure costs while empowering your team with the skills to manage cloud environments confidently.",
+      tech: "AWS • Azure • Google Cloud • Cloud Security Tools"
     },
     {
-      title: "Real AI",
-      tag: "Enterprise AI Workspace - Lead Architect",
-      description: "Multi-model AI workspace serving 1,500+ active users.",
+      title: "IT Operations & Team Training",
+      tag: "Empowering Your Team",
+      description: "Moving beyond break/fix support to empower your internal team with the skills to maintain operational excellence.",
       features: [
-        "Built: Multi-model chat, image/video generation, knowledge bases, super-prompt builder, brand voice tools",
-        "Multi-model AI (OpenAI, Anthropic, and more)",
-        "Image and video generation",
-        "Knowledge bases and content tools"
+        "Help desk workflow training",
+        "System administration coaching",
+        "IT documentation workshops",
+        "Proactive maintenance strategies"
       ],
-      impact: "Impact: Centerpiece of thriving subscription community (1,300+ members).",
-      tech: "Multi-model AI • Firebase • React"
+      impact: "Transform your IT from a cost center to a strategic asset by building internal capabilities and reducing reliance on external support.",
+      tech: "Remote Support Tools • Monitoring Systems • Ticketing Platforms"
     },
     {
-      title: "ChatterCard",
-      tag: "Proof-of-Concept Tool",
-      description: "Lightweight engagement tool connecting content to clear actions. Simple, focused, built to prove a point.",
-      tech: "Simple & Focused"
+      title: "Network Strategy & Education",
+      tag: "Connectivity & Knowledge",
+      description: "Building robust networks and educating your staff on connectivity fundamentals and troubleshooting.",
+      details: [
+        "Network design sessions",
+        "WiFi optimization training",
+        "Connectivity troubleshooting guides",
+        "Network security fundamentals"
+      ],
+      benefits: "Stay connected with reliable networks and a team that understands how to keep them running efficiently.",
+      tech: "Cisco • Ubiquiti • Enterprise WiFi • VPN Solutions"
     },
     {
-      title: "Disruptiv Solutions",
-      tag: "Client Work & White-Label Builds",
-      description: "Where it all started—rapid AI product development and white-label builds for founders who need to ship fast.",
+      title: "Digital Presence Coaching",
+      tag: "Own Your Web Strategy",
+      description: "Building your digital presence while teaching you how to maintain, update, and grow your website.",
+      features: [
+        "Custom website development",
+        "Content management training",
+        "SEO fundamentals workshops",
+        "Analytics interpretation coaching"
+      ],
+      impact: "Take control of your digital narrative with a professional website and the knowledge to manage it effectively.",
+      tech: "React • Next.js • WordPress • Modern Web Technologies",
+      cta: "Get Started"
+    },
+    {
+      title: "Strategic Tech Audit",
+      tag: "Educational Assessment",
+      description: "A deep-dive analysis of your systems accompanied by educational sessions on identified risks and opportunities.",
       learnings: [
-        "How to scope projects that actually ship",
-        "Building for non-technical users",
-        "The importance of clear communication over clever code"
+        "Comprehensive system reviews",
+        "Risk explanation sessions",
+        "Strategic roadmap planning",
+        "Security vulnerability education"
       ],
-      tech: "Multi-model AI • White-label Multi-tenant SaaS • Firebase/Firestore"
+      benefits: "Understand your IT infrastructure inside and out. Know exactly where to invest for maximum impact.",
+      tech: "Assessment Tools • Security Scanners • Performance Monitors"
     },
     {
-      title: "PokéScan",
-      tag: "Weekend Project",
-      description: "Built in a few hours using Cursor AI to organize my Pokémon card collection.",
-      details: "Perfect? Nope. Useful? Absolutely.",
-      lesson: "Don't wait for the perfect idea. Start building things that solve problems in your actual life. The skills you develop compound.",
-      link: "Try it free: pokescan.replit.app"
+      title: "Operational Excellence Workshops",
+      tag: "Resilience Training",
+      description: "Training your organization to build and maintain resilient, fail-safe systems that withstand challenges.",
+      details: [
+        "Disaster recovery drills",
+        "Business continuity workshops",
+        "System hardening training",
+        "Performance optimization coaching"
+      ],
+      impact: "Build a resilient organization that can weather any storm through preparation, training, and robust systems.",
+      tech: "Monitoring Tools • Backup Solutions • High Availability Systems"
     }
   ];
 
@@ -80,7 +107,7 @@ const Portfolio: React.FC = () => {
 
       cardsRef.current.forEach((card, index) => {
         if (!card) return;
-        
+
         const cardRect = card.getBoundingClientRect();
         const cardCenterY = cardRect.top + cardRect.height / 2;
         const distance = Math.abs(cardCenterY - centerY);
@@ -117,11 +144,11 @@ const Portfolio: React.FC = () => {
     const interval = setInterval(() => {
       setIsTransitioning(true);
       setTimeout(() => {
-          setActiveIndex((prevIndex) => (prevIndex + 1) % projects.length);
-          setIsTransitioning(false);
+        setActiveIndex((prevIndex) => (prevIndex + 1) % projects.length);
+        setIsTransitioning(false);
       }, 400);
     }, 5000);
-    
+
     return () => clearInterval(interval);
   }, [activeIndex, projects.length]);
 
@@ -139,21 +166,20 @@ const Portfolio: React.FC = () => {
                 {/* Static Title Section */}
                 <div className="mb-6 max-w-2xl w-full">
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white">
-                    Things I've Built
+                    IT Services & Solutions
                   </h2>
-                  <p className="text-gray-400 text-lg max-w-3xl">
-                    From side projects to enterprise platforms—each one taught me something for the next.
+                  <p className="text-gray-300 text-lg max-w-3xl">
+                    Comprehensive IT solutions tailored to unlock your business potential and keep you running efficiently.
                   </p>
                 </div>
-                
+
                 {/* Dynamic Project Content */}
-                <div 
-                  className={`space-y-6 max-w-2xl w-full transition-opacity duration-700 ${
-                    isTransitioning ? 'opacity-0' : 'opacity-100'
-                  }`}
+                <div
+                  className={`space-y-6 max-w-2xl w-full transition-opacity duration-700 ${isTransitioning ? 'opacity-0' : 'opacity-100'
+                    }`}
                 >
                   <div>
-                    <span className="text-red-500 text-sm font-semibold">{activeProject.tag}</span>
+                    <span className="text-[#FF9800] text-sm font-semibold">{activeProject.tag}</span>
                     <h3 className="text-2xl font-bold text-white mb-2 mt-1">
                       {activeProject.title}
                     </h3>
@@ -166,8 +192,8 @@ const Portfolio: React.FC = () => {
                   {activeProject.details && Array.isArray(activeProject.details) && (
                     <div className="space-y-3">
                       {activeProject.details.map((detail, idx) => (
-                        <p key={idx} className="text-gray-400 flex items-start gap-3">
-                          <span className="text-red-600">•</span>
+                        <p key={idx} className="text-gray-300 flex items-start gap-3">
+                          <span className="text-[#FF9800]">•</span>
                           <span>{detail}</span>
                         </p>
                       ))}
@@ -178,8 +204,8 @@ const Portfolio: React.FC = () => {
                     <div className="space-y-3">
                       <p className="text-white font-semibold">What I built:</p>
                       {activeProject.features.map((feature, idx) => (
-                        <p key={idx} className="text-gray-400 flex items-start gap-3">
-                          <span className="text-red-600">•</span>
+                        <p key={idx} className="text-gray-300 flex items-start gap-3">
+                          <span className="text-[#FF9800]">•</span>
                           <span>{feature}</span>
                         </p>
                       ))}
@@ -188,10 +214,10 @@ const Portfolio: React.FC = () => {
 
                   {activeProject.learnings && (
                     <div className="space-y-3">
-                      <p className="text-white font-semibold">What I learned:</p>
+                      <p className="text-white font-semibold">Key Services:</p>
                       {activeProject.learnings.map((learning, idx) => (
-                        <p key={idx} className="text-gray-400 flex items-start gap-3">
-                          <span className="text-red-600">•</span>
+                        <p key={idx} className="text-gray-300 flex items-start gap-3">
+                          <span className="text-[#FF9800]">•</span>
                           <span>{learning}</span>
                         </p>
                       ))}
@@ -199,47 +225,37 @@ const Portfolio: React.FC = () => {
                   )}
 
                   {activeProject.impact && (
-                    <div className="border-l-4 border-red-600 pl-4">
-                      <p className="text-gray-400 text-sm mb-1">Impact</p>
+                    <div className="border-l-4 border-[#FF9800] pl-4">
+                      <p className="text-gray-300 text-sm mb-1">Impact</p>
                       <p className="text-white font-medium">{activeProject.impact}</p>
                     </div>
                   )}
 
-                  {activeProject.lesson && (
-                    <p className="text-gray-400 italic">{activeProject.lesson}</p>
-                  )}
-
                   {activeProject.details && !Array.isArray(activeProject.details) && (
-                    <p className="text-gray-400">{activeProject.details}</p>
+                    <p className="text-gray-300">{activeProject.details}</p>
                   )}
 
-                  {activeProject.traction && (
-                    <div className="border-l-4 border-red-600 pl-4">
-                      <p className="text-gray-400 text-sm mb-1">Current traction</p>
-                      <p className="text-white font-medium">{activeProject.traction}</p>
+                  {activeProject.benefits && (
+                    <div className="border-l-4 border-[#FF9800] pl-4">
+                      <p className="text-gray-300 text-sm mb-1">Benefits</p>
+                      <p className="text-white font-medium">{activeProject.benefits}</p>
                     </div>
                   )}
 
                   <div>
-                    <p className="text-sm text-gray-500 mb-2">Tech Stack</p>
-                    <p className="text-red-500 font-medium">{activeProject.tech}</p>
+                    <p className="text-sm text-gray-300 mb-2">Tech Stack</p>
+                    <p className="text-[#FF9800] font-medium">{activeProject.tech}</p>
                   </div>
-
-                  {activeProject.link && (
-                    <a 
-                      href={`https://${activeProject.link}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-block text-red-600 hover:text-red-500 underline"
-                    >
-                      {activeProject.link}
-                    </a>
-                  )}
 
                   {activeProject.cta && (
                     <button
-                      onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                      className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-lg hover:shadow-red-600/50"
+                      onClick={() => {
+                        const footer = document.querySelector('footer');
+                        if (footer) {
+                          footer.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="px-8 py-4 bg-gradient-to-r from-[#1A237E] to-[#0D1642] text-white font-bold rounded-xl hover:from-[#0D1642] hover:to-[#1A237E] transition-all duration-300 shadow-lg hover:shadow-[#1A237E]/50"
                     >
                       {activeProject.cta}
                     </button>
@@ -248,7 +264,7 @@ const Portfolio: React.FC = () => {
               </div>
 
               {/* Right Side - Infinite Scroll Showcase (Desktop Only) */}
-              <div 
+              <div
                 ref={scrollContainerRef}
                 className="hidden lg:block relative h-full overflow-hidden px-4"
               >
@@ -276,7 +292,8 @@ const Portfolio: React.FC = () => {
                   {[...projects, ...projects].map((project, index) => {
                     const actualIndex = index % projects.length;
                     const isActive = actualIndex === activeIndex;
-                    
+
+
                     return (
                       <div
                         key={index}
@@ -285,20 +302,19 @@ const Portfolio: React.FC = () => {
                         }}
                         className="mb-4 px-2 transition-all duration-700"
                       >
-                        <div 
-                          className={`bg-transparent border rounded-xl p-6 transition-all duration-700 ${
-                            isActive 
-                              ? 'border-red-600 opacity-100 scale-105' 
-                              : 'border-gray-800 opacity-50 scale-100'
-                          }`}
+                        <div
+                          className={`bg-transparent border rounded-xl p-6 transition-all duration-700 ${isActive
+                            ? 'border-[#FF9800] opacity-100 scale-105'
+                            : 'border-[#ECEFF1] opacity-50 scale-100'
+                            }`}
                         >
                           <h3 className="text-xl font-semibold text-white mb-3">
                             {project.title}
                           </h3>
-                          <p className="text-sm text-red-500 font-medium mb-3">
+                          <p className="text-sm text-[#FF9800] font-medium mb-3">
                             {project.tag}
                           </p>
-                          <p className="text-gray-400 leading-relaxed">
+                          <p className="text-gray-300 leading-relaxed">
                             {project.description}
                           </p>
                         </div>

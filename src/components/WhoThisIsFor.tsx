@@ -4,119 +4,107 @@ import React from 'react';
 
 const WhoThisIsFor: React.FC = () => {
   return (
-    <section 
+    <section
       id="who-this-is-for"
-      className="bg-black snap-start pt-[65px] pb-20 lg:py-0 min-h-screen"
+      className="bg-[#212121] snap-start pt-[65px] pb-20 lg:py-0 min-h-screen"
     >
       <div className="max-w-7xl mx-auto px-6 w-full lg:h-[calc(100vh-65px)]">
         <div className="lg:h-full flex items-center pt-0 lg:pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1px_1fr] gap-12 items-center w-full h-full">
             {/* Left: Who This Is For - Static */}
             <div className="lg:pr-8 flex flex-col justify-center space-y-6">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-10">
-                You're Exactly Where I Was 12 Months Ago
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-10 uppercase">
+                Technology Solutions for Growing Businesses
               </h2>
-              
+              <div className="h-1 w-32 bg-[#FF9800] mb-6"></div>
+
               <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
                 <div className="space-y-4">
                   <p className="text-xl flex items-start gap-3">
-                    <span className="text-red-600 font-bold">→</span>
-                    <span>You know you're capable of more</span>
+                    <span className="text-[#FF9800] font-bold text-2xl">→</span>
+                    <span>Small to medium businesses needing reliable IT support</span>
                   </p>
                   <p className="text-xl flex items-start gap-3">
-                    <span className="text-red-600 font-bold">→</span>
-                    <span>You have ideas but don't know where to start</span>
+                    <span className="text-[#FF9800] font-bold text-2xl">→</span>
+                    <span>Organizations seeking digital transformation</span>
                   </p>
                   <p className="text-xl flex items-start gap-3">
-                    <span className="text-red-600 font-bold">→</span>
-                    <span>You're tired of tutorials that don't lead anywhere</span>
+                    <span className="text-[#FF9800] font-bold text-2xl">→</span>
+                    <span>Companies seeking reliable IT solutions</span>
                   </p>
                   <p className="text-xl flex items-start gap-3">
-                    <span className="text-red-600 font-bold">→</span>
-                    <span>You want to build something real, not just learn syntax</span>
+                    <span className="text-[#FF9800] font-bold text-2xl">→</span>
+                    <span>Teams ready to optimize their IT infrastructure</span>
                   </p>
                 </div>
-                
-                <p className="mt-8">
-                  I spent years thinking I wasn't "technical enough."<br />
-                  Then I built something 1,500+ people use daily.
+
+                <p className="mt-8 text-white">
+                  Whether you're scaling up or starting fresh,<br />
+                  I provide the expertise you need to succeed.
                 </p>
-                
-                <p className="text-white text-xl font-semibold">
-                  You don't need perfect code. You don't need years of experience.<br /><br />
-                  You need to start messy and build something today.
+
+                <p className="text-[#FF9800] text-xl font-bold uppercase">
+                  Technology should empower your business, not complicate it.<br /><br />
+                  Let's build solutions that work for you.
                 </p>
               </div>
             </div>
 
             {/* Divider */}
             <div className="hidden lg:block justify-self-center self-stretch flex items-center">
-              <div className="w-px bg-gray-800 rounded-full h-[calc(100%-2rem)] my-8"></div>
+              <div className="w-px bg-[#FF9800] rounded-full h-[calc(100%-2rem)] my-8"></div>
             </div>
 
-            {/* Right: My Story - Scrollable */}
+            {/* Right: About Me - Scrollable */}
             <div className="lg:pl-8 h-full overflow-y-auto scrollbar-hide relative">
               <div className="space-y-6 text-gray-300 text-lg leading-relaxed pb-8">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 sticky top-0 bg-black pt-4 pb-4 z-20">
-                  My Story
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 sticky top-0 bg-[#212121] pt-4 pb-4 z-20 uppercase">
+                  About Me
                 </h2>
+                <div className="h-1 w-24 bg-[#FF9800] mb-6"></div>
                 {/* Fade gradient overlay - fades content as it scrolls up */}
-                <div className="sticky top-[80px] left-0 right-0 h-20 bg-gradient-to-b from-black via-black/70 to-transparent pointer-events-none z-10 -mt-20"></div>
-                
-                <p>
-                  A year ago I was barely making money, questioning if this entrepreneur thing was realistic.
+                <div className="sticky top-[80px] left-0 right-0 h-20 bg-gradient-to-b from-[#212121] via-[#212121]/70 to-transparent pointer-events-none z-10 -mt-20"></div>
+
+                <p className="text-white font-bold text-xl uppercase">
+                  Education & Credentials
                 </p>
-                
+                <div className="space-y-2">
+                  <p>• BS in Information Systems Security</p>
+                  <p>• MA in IT Project Management</p>
+                  <p>• AAS in Air Transportation Operations</p>
+                </div>
+
+                <p className="text-white font-semibold text-xl mt-6">
+                  Military Service
+                </p>
                 <p>
-                  Then I lost my dad in December 2023.
+                  Air Force veteran and active Navy Reservist with over a decade of experience in IT, project management, and workforce services.
                 </p>
 
                 <p>
-                  He was the person who believed in me no matter what. When he left, I had a choice: step into those shoes and believe in myself like he did, or abandon hope.
+                  My military background taught me discipline, attention to detail, and the importance of mission-critical systems. I bring that same dedication to every client engagement.
                 </p>
-                
-                <p className="text-white font-semibold text-xl">
-                  I chose to bet on myself.
+
+                <p className="text-white font-semibold text-xl mt-6">
+                  Professional Expertise
                 </p>
-                
-                <p>
-                  I went from client work (Disruptiv Solutions) to building proof-of-concept tools (ChatterCard) to becoming lead architect for an AI platform serving 1,500+ active users. From knowing nothing about speaking to leading workshops.
-                </p>
-                
-                <p>
-                  I learned that imposter syndrome is expensive. That knowing your worth isn't optional.
-                </p>
-                
-                <p>
-                  Now I'm 31, living in Pensacola, FL, building in public and teaching others to do the same.
-                </p>
-                
-                <p>
-                  I work on my dream every day. I also know that grinding isn't always the answer—rest matters too.
-                </p>
-                
-                <div className="rounded-xl border border-gray-800 bg-zinc-900/30 pl-6 pr-6 py-6 mt-8 space-y-3">
-                  <p className="text-white font-semibold text-xl mb-4">If you're where I was 12 months ago:</p>
-                  <p className="flex items-start gap-3">
-                    <span className="text-red-600 font-bold">→</span>
-                    <span>You're more capable than you think</span>
-                  </p>
-                  <p className="flex items-start gap-3">
-                    <span className="text-red-600 font-bold">→</span>
-                    <span>Work on your craft daily</span>
-                  </p>
-                  <p className="flex items-start gap-3">
-                    <span className="text-red-600 font-bold">→</span>
-                    <span>Failure is growth</span>
-                  </p>
-                  <p className="flex items-start gap-3">
-                    <span className="text-red-600 font-bold">→</span>
-                    <span>Build your audience</span>
+                <div className="space-y-2">
+                  <p>• IT Infrastructure & Troubleshooting</p>
+                  <p>• Digital Transformation & Process Optimization</p>
+                  <p>• Project Leadership & Team Training</p>
+                  <p>• Career Development & Workforce Guidance</p>
+                  <p>• Content Creation & Educational Resources</p>
+                </div>
+
+                <div className="rounded-xl border border-[#FF9800]/30 bg-black/40 pl-6 pr-6 py-6 mt-8 space-y-3">
+                  <p className="text-[#FF9800] font-semibold text-xl mb-4">My Mission:</p>
+                  <p className="italic text-gray-200">
+                    "To make technology, career advancement, and lifelong learning accessible to all, regardless of background. I believe in sharing expertise with clarity, empathy, and actionable guidance."
                   </p>
                 </div>
-                
+
                 <p className="text-white font-semibold text-xl mt-8">
-                  The universe put you exactly where you need to be.
+                  I'm here to help you unlock your potential in tech and professional growth.
                 </p>
               </div>
             </div>

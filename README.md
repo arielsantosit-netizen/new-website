@@ -1,80 +1,153 @@
-# disruptivsolutions-website
+# Ariel Santos TechMentor Website
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Professional IT consulting and technology strategy website for Ariel Santos TechMentor, a veteran-owned IT services business.
 
-## 🎥 Replicate Video Models Integration
+## 🎯 About
 
-This project includes a complete implementation for fetching and displaying **Replicate's official AI video models**. Official models are production-ready, always-on, and have stable APIs.
+This is the official website for **Ariel Santos TechMentor**, showcasing comprehensive IT solutions including cloud computing, network architecture, web development, and IT support services. Built with modern web technologies to deliver a premium, professional experience.
 
-### Quick Setup
+## 🚀 Tech Stack
 
-1. **Get your Replicate API token** from [https://replicate.com/account/api-tokens](https://replicate.com/account/api-tokens)
+- **Framework**: [Next.js 15](https://nextjs.org) with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Fonts**: Inter, Montserrat, Poppins, Nunito (Google Fonts)
+- **Analytics**: Google Analytics 4 (GA4)
+- **Deployment**: Vercel
 
-2. **Create `.env.local` file** in the project root:
+## ✨ Features
+
+### Professional Design
+- 🎨 Dark mode with orange accent colors (#FF9800)
+- ✨ Custom light ray animations and visual effects
+- 📱 Fully responsive design (mobile, tablet, desktop)
+- 🎭 3D tilt effects and smooth animations
+- 🖼️ Optimized images and media
+
+### Key Sections
+- **Hero Section**: Dynamic video background with professional branding
+- **About**: Military background and professional expertise
+- **Services Portfolio**: 6 comprehensive IT service offerings
+- **Approach**: Mission-critical mindset and tailored solutions
+- **Contact**: Integrated consultation booking and contact forms
+
+### Services Highlighted
+1. Cloud Computing - Infrastructure & storage solutions
+2. IT Support & Maintenance - Help desk & monitoring
+3. Network Architecture - Modern network solutions
+4. Web Development - Custom website creation
+5. Infrastructure Assessment - IT health checks
+6. Ops Resilience - IT optimization & hardening
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- Node.js 18+ installed
+- npm, yarn, pnpm, or bun package manager
+
+### Installation
+
+1. **Clone the repository**
 ```bash
-REPLICATE_API_TOKEN=r8_your_token_here
+git clone <repository-url>
+cd new-website
 ```
 
-3. **Run the development server**:
+2. **Install dependencies**
 ```bash
-npm run dev
+npm install
+# or
+yarn install
+# or
+pnpm install
 ```
 
-4. **View the video models** at [http://localhost:3000/video-models](http://localhost:3000/video-models)
-
-### Features
-
-✨ **Official Video Models Only** - Curated list of Replicate's production-ready video AI models
-- minimax/video-01 (Hailuo)
-- luma/ray (Dream Machine)
-- haiper-ai/haiper-video-2
-- tencent/hunyuan-video
-- bytedance/seedance-1-pro & seedance-1-lite
-
-📦 **Complete API Integration**
-- REST API endpoint: `/api/replicate/video-models`
-- React hook: `useVideoModels()`
-- Utility functions in `src/lib/replicate-video-models.ts`
-
-🎨 **Beautiful UI**
-- Responsive grid layout
-- Dark mode support
-- Loading and error states
-- Model cards with cover images and stats
-
-📚 **Full Documentation** - See [REPLICATE_SETUP.md](./REPLICATE_SETUP.md) for detailed documentation
-
-## Getting Started
-
-First, run the development server:
-
+3. **Run the development server**
 ```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. **Open your browser**
+Navigate to [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with metadata & analytics
+│   ├── page.tsx            # Home page
+│   └── globals.css         # Global styles
+├── components/
+│   ├── Hero.tsx            # Hero section with video background
+│   ├── WhoThisIsFor.tsx    # About section
+│   ├── ImageSection.tsx    # Approach section with collage
+│   ├── Portfolio.tsx       # Services showcase
+│   ├── Consulting.tsx      # Why choose us section
+│   ├── Footer.tsx          # Footer with contact info
+│   ├── Navigation.tsx      # Navigation bar
+│   └── LightRays.tsx       # Custom light ray effect
+└── lib/
+    └── analytics.ts        # Google Analytics utilities
+```
 
-## Learn More
+## 🎨 Customization
 
-To learn more about Next.js, take a look at the following resources:
+### Colors
+The primary brand color is orange (#FF9800). To change it, update references in:
+- Component className props: `text-[#FF9800]`, `bg-[#FF9800]`, etc.
+- Tailwind config (if needed)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Content
+- **Services**: Edit `src/components/Portfolio.tsx`
+- **About Info**: Edit `src/components/WhoThisIsFor.tsx`
+- **Approach**: Edit `src/components/ImageSection.tsx`
+- **Hero Text**: Edit `src/components/Hero.tsx`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Analytics
+Update Google Analytics ID in `src/app/layout.tsx`:
+```tsx
+gtag('config', 'G-S5VCYRETYC');
+```
 
-## Deploy on Vercel
+## 📊 Analytics
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The site includes Google Analytics 4 (GA4) tracking with custom events:
+- Button clicks
+- External link tracking
+- Form submissions
+- Video interactions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚢 Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import project in [Vercel](https://vercel.com)
+3. Deploy with one click
+
+The site will automatically deploy on every push to the main branch.
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## 📝 License
+
+© 2024 Ariel Santos. All rights reserved.
+
+## 🤝 Contact
+
+- **Website**: [arielsantos.space](https://arielsantos.space)
+- **Email**: info@arielsantos.space
+
+---
+
+Built with ❤️ by Ariel Santos IT Consulting

@@ -34,6 +34,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://arielsantos.space'),
   title: "Ariel Santos — TechMentor | IT Consultant & Technology Strategist",
   description: "Air Force veteran, Navy Reservist, and IT professional with over a decade of experience. TechMentor provides comprehensive IT solutions including cloud computing, network architecture, web development, and IT support.",
   keywords: ["Ariel Santos", "TechMentor", "IT Consultant", "Technology Strategist", "Cloud Computing", "Network Architecture", "Web Development", "IT Services", "IT Support", "Military Veteran", "Navy Reservist"],

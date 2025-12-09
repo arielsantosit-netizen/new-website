@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover blur-background"
           style={{ filter: 'brightness(0.7) contrast(1.1) grayscale(20%)' }}
         >
-          <source src="/website video.mp4" type="video/mp4" />
+          <source src="/website-video.mp4" type="video/mp4" />
         </video>
         {/* Dark overlay with orange accent */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"></div>

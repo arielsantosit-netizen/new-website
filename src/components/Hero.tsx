@@ -51,13 +51,13 @@ const Hero: React.FC = () => {
           playsInline
           autoPlay
           className="absolute inset-0 w-full h-full object-cover blur-background"
-          style={{ filter: 'brightness(0.5) contrast(1.1) grayscale(20%)' }}
+          style={{ filter: 'brightness(0.7) contrast(1.1) grayscale(20%)' }}
         >
           <source src="/website video.mp4" type="video/mp4" />
         </video>
         {/* Dark overlay with orange accent */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#FF9800]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-[#FF9800]/10"></div>
       </div>
 
       {/* Content wrapper positioned correctly */}

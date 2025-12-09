@@ -66,7 +66,7 @@ const Hero: React.FC = () => {
         <div className="space-y-4 lg:space-y-6 lg:text-right max-w-2xl lg:mr-12 w-full">
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-4 lg:mb-6 uppercase">
-            Ariel Santos TechMentor
+            Ariel Santos
           </h1>
           <div className="h-1 w-32 bg-[#FF9800] mb-6 lg:ml-auto"></div>
 

@@ -67,7 +67,7 @@ const Navigation = ({ activeSection = 'hero' }: NavigationProps) => {
             >
               <img src="/ariel-santos-logo.jpg" alt="Ariel Santos" className="h-10 w-auto" />
               <span className="text-xl font-bold text-white uppercase" style={{ fontFamily: 'var(--font-poppins)' }}>
-                Ariel Santos TechMentor
+                Ariel Santos
               </span>
             </button>
 
@@ -118,7 +118,7 @@ const Navigation = ({ activeSection = 'hero' }: NavigationProps) => {
                 <button onClick={() => handleNavClick('#hero')} className="flex items-center gap-3">
                   <img src="/ariel-santos-logo.jpg" alt="Ariel Santos" className="h-8 w-auto" />
                   <span className="text-lg font-bold text-white uppercase" style={{ fontFamily: 'var(--font-poppins)' }}>
-                    TechMentor
+                    Ariel Santos
                   </span>
                 </button>
                 <button onClick={toggleMobileMenu} className="text-white hover:text-[#FF9800]">

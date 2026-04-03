@@ -1,133 +1,120 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { trackButtonClick, trackVideoPlay } from '@/lib/analytics';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { trackButtonClick } from '@/lib/analytics';
 
 const Hero: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const sectionRef = useRef<HTMLElement>(null) as React.RefObject<HTMLElement>;
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
+  // JS implementation for particles and cursor logic
   useEffect(() => {
-    const section = sectionRef.current;
-    const video = videoRef.current;
-
-    if (!section || !video) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // When hero section is visible, play the video
-          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-            video.play().catch((error) => {
-              console.warn('Video autoplay failed:', error);
-            });
-          } else {
-            // Pause when not visible to save resources
-            video.pause();
-          }
-        });
-      },
-      {
-        threshold: [0, 0.5, 1],
-        rootMargin: '0px'
+    // 1. Particles Generation
+    const particlesContainer = document.getElementById('particles');
+    if (particlesContainer) {
+      // Clear any existing particles
+      particlesContainer.innerHTML = '';
+      
+      const particleCount = 20;
+      for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        
+        // Randomize size, position, and animation properties
+        const size = Math.random() * 8 + 4; // 4px - 12px
+        const left = Math.random() * 100; // 0% - 100%
+        const delay = Math.random() * 5; // 0s - 5s
+        const duration = Math.random() * 10 + 10; // 10s - 20s
+        
+        // Pick one of the iridescent colors randomly
+        const colors = ['var(--color-lavender)', 'var(--color-mint)', 'var(--color-blush)', 'var(--color-lemon)'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        p.style.width = `${size}px`;
+        p.style.height = `${size}px`;
+        p.style.left = `${left}%`;
+        p.style.bottom = `-20px`; // start below viewport
+        p.style.backgroundColor = color;
+        p.style.animationDelay = `${delay}s`;
+        p.style.animationDuration = `${duration}s`;
+        
+        particlesContainer.appendChild(p);
       }
-    );
+    }
 
-    observer.observe(section);
-
-    return () => {
-      observer.disconnect();
-    };
+    // Background light rays or other static visual logic can go here
   }, []);
 
   return (
-    <section ref={sectionRef} id="hero" className="relative h-screen lg:min-h-screen flex items-center justify-center bg-black snap-start" style={{ overflow: 'hidden' }}>
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <video
-          ref={videoRef}
-          muted
-          loop
-          playsInline
-          autoPlay
-          className="absolute inset-0 w-full h-full object-cover blur-background"
-          style={{ filter: 'brightness(0.7) contrast(1.1) grayscale(20%)' }}
-        >
-          <source src="/website-video.mp4" type="video/mp4" />
-        </video>
-        {/* Dark overlay with orange accent */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-[#FF9800]/10"></div>
-      </div>
+    <section
+      ref={containerRef}
+      id="hero"
+      className="holo-bg relative h-screen flex items-center justify-center overflow-hidden"
+    >
+      <div id="particles"></div>
 
-      {/* Content wrapper positioned correctly */}
-      <div className="w-full relative px-6 pt-[85px] pb-24 lg:pb-32 lg:pt-60 flex items-center justify-end h-full" style={{ zIndex: 10 }}>
-        {/* Content aligned to the right */}
-        <div className="space-y-4 lg:space-y-6 lg:text-right max-w-2xl lg:mr-12 w-full">
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-4 lg:mb-6 uppercase">
-            Ariel Santos
-          </h1>
-          <div className="h-1 w-32 bg-[#FF9800] mb-6 lg:ml-auto"></div>
+      {/* Content */}
+      <div className="container mx-auto px-6 relative z-10 pointer-events-none">
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
+          
+          {/* Subtle Accent Spacing */}
+          <div className="mb-8 relative flex justify-center items-center w-full">
+            <span className="sparkle-load text-3xl text-[var(--accent-violet)]">✦</span>
+          </div>
 
-          {/* Subheadline */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 uppercase">
-            TechMentor | IT Consultant & Technology Strategist
-          </h2>
+          {/* Main Tagline */}
+          <div className="mb-6 max-w-4xl">
+            <h1 className="hero-subtitle font-serif-elegant text-4xl md:text-6xl lg:text-[72px] text-[#111] font-medium leading-[1.1] pointer-events-auto">
+              Technology, Career Growth, and Learning — <span className="font-script bg-gradient-to-r from-[#888] to-[#111] bg-clip-text text-transparent">Made Accessible</span>
+            </h1>
+          </div>
 
-          {/* Description */}
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed mb-8">
-            Making technology, career advancement, and lifelong learning accessible to all.
-            <br /><br />
-            <span className="text-white font-semibold">Empowering your business with expert IT solutions</span>
-          </p>
+          {/* Subheading / Mission */}
+          <div className="mb-12 max-w-2xl">
+            <p className="text-gray-500 font-serif-elegant text-lg md:text-xl lg:text-2xl leading-relaxed pointer-events-auto">
+              Empowering career changers, veterans, and tech professionals through clarity, mentorship, and actionable guidance.
+            </p>
+          </div>
 
-          {/* CTAs */}
-          <div className="hidden lg:flex flex-col sm:flex-row gap-4 pt-4">
+          {/* Call to Actions */}
+          <div className="flex flex-col sm:flex-row gap-6 mt-8 p-4 reveal-stagger visible pointer-events-auto">
             <button
               onClick={() => {
                 const work = document.getElementById('work');
-                if (work) {
-                  work.scrollIntoView({ behavior: 'smooth' });
-                }
+                work?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-8 py-4 bg-[#FF9800] text-black font-bold uppercase rounded-lg hover:bg-[#1A237E] hover:text-white transition-all duration-300 shadow-lg hover:shadow-[#FF9800]/50"
+              className="btn-shimmer px-10 py-4 bg-[var(--color-text)] text-white font-serif-elegant tracking-widest uppercase rounded-full transition-all duration-500 shadow-xl"
             >
-              View Services
+              Explore Services
             </button>
             <button
               onClick={() => {
                 trackButtonClick('contact_us', 'hero_section');
-                const footer = document.querySelector('footer');
-                if (footer) {
-                  footer.scrollIntoView({ behavior: 'smooth' });
-                }
+                document.querySelector('footer')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-8 py-4 border-2 border-[#FF9800] text-white font-bold uppercase rounded-lg hover:bg-[#FF9800] hover:text-black transition-all duration-300"
+              className="btn-shimmer px-10 py-4 border border-[var(--color-text)] text-[var(--color-text)] font-serif-elegant tracking-widest uppercase rounded-full backdrop-blur-md transition-all duration-500 bg-white/20"
             >
-              Contact Us
+              Get in Touch
             </button>
           </div>
-
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-4 lg:bottom-12 left-0 right-0 flex justify-center animate-bounce" style={{ zIndex: 10 }}>
-        <svg
-          className="w-6 h-6 text-[#FF9800]"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
-      </div>
+      {/* Modern Scroll Indicator */}
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+        style={{ opacity }}
+      >
+        <div className="w-[1px] h-16 bg-gradient-to-b from-[var(--color-text)] to-transparent"></div>
+        <span className="text-[10px] text-[var(--color-text)] uppercase tracking-widest font-serif-elegant font-bold">Scroll</span>
+      </motion.div>
     </section>
   );
 };
 
 export default Hero;
+

@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero';
 import WhoThisIsFor from '@/components/WhoThisIsFor';
-import ImageSection from '@/components/ImageSection';
+import Approach from '@/components/Approach';
 import Consulting from '@/components/Consulting';
 import Portfolio from '@/components/Portfolio';
 
@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Hero />
       <WhoThisIsFor />
-      <ImageSection imagePath="/Collage Photo.jpg" alt="Ariel Santos Professional" />
+      <Approach />
       <Portfolio />
       <Consulting />
     </>

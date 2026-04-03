@@ -103,10 +103,11 @@ const ScrollCounter: React.FC = () => {
   return (
     <div 
       ref={sectionRef}
-      className="w-full bg-black flex items-center justify-center snap-start"
+      className="w-full bg-[#fdfdfd] flex items-center justify-center snap-start relative overflow-hidden"
       style={{ height: '25vh' }}
     >
-      <div ref={containerRef} className="relative w-full h-full flex items-center justify-center">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-gradient-to-r from-blue-50/40 via-pink-50/40 to-yellow-50/40 blur-[100px] rounded-full pointer-events-none" />
+      <div ref={containerRef} className="relative w-full h-full flex items-center justify-center z-10">
         {approaches.map((approach, index) => (
           <div
             key={approach.number}
@@ -118,10 +119,10 @@ const ScrollCounter: React.FC = () => {
             }}
           >
             <div className="text-center px-6 max-w-4xl">
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif-elegant text-[#111] mb-6">
                 {approach.title}
               </h3>
-              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-600 font-serif-elegant leading-relaxed tracking-wide">
                 {approach.description}
               </p>
             </div>

@@ -25,10 +25,10 @@ export const VideoModelCard = ({
   githubUrl,
 }: VideoModelCardProps) => {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden hover:shadow-lg transition-all duration-300">
       {/* Cover Image */}
       {coverImage ? (
-        <div className="w-full h-48 bg-slate-200 dark:bg-slate-700 relative">
+        <div className="w-full h-48 bg-gray-50 relative">
           <img
             src={coverImage}
             alt={`${name} preview`}
@@ -36,9 +36,9 @@ export const VideoModelCard = ({
           />
         </div>
       ) : (
-        <div className="w-full h-48 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+        <div className="w-full h-48 bg-gradient-to-br from-pink-50 to-blue-50 flex items-center justify-center border-b border-gray-100">
           <svg
-            className="w-16 h-16 text-white opacity-50"
+            className="w-16 h-16 text-gray-300"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -46,7 +46,7 @@ export const VideoModelCard = ({
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={2}
+              strokeWidth={1}
               d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
             />
           </svg>
@@ -55,26 +55,26 @@ export const VideoModelCard = ({
 
       {/* Content */}
       <div className="p-6">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+        <div className="flex items-start justify-between mb-3">
+          <h3 className="text-xl font-serif-elegant text-[#111] font-medium tracking-wide">
             {name}
           </h3>
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest font-serif-elegant bg-green-50 text-green-700">
             Official
           </span>
         </div>
 
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <p className="text-sm font-serif-elegant text-gray-400 mb-4">
           by {owner}
         </p>
 
-        <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 line-clamp-3">
+        <p className="text-gray-600 font-serif-elegant text-sm mb-6 leading-relaxed line-clamp-3">
           {description}
         </p>
 
         {/* Stats */}
-        <div className="flex items-center text-xs text-slate-500 dark:text-slate-400 mb-4">
-          <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+        <div className="flex items-center font-serif-elegant text-sm text-gray-500 mb-6">
+          <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
             <path
               fillRule="evenodd"
@@ -86,12 +86,12 @@ export const VideoModelCard = ({
         </div>
 
         {/* Links */}
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <a
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center px-4 py-2 bg-slate-900 dark:bg-slate-700 text-white rounded-md hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors text-sm font-medium"
+            className="flex-1 text-center px-5 py-2.5 bg-[#111] text-white rounded-full hover:bg-[#333] transition-colors text-xs uppercase tracking-widest font-serif-elegant shadow-sm hover:shadow-md"
           >
             View Model
           </a>
@@ -100,7 +100,7 @@ export const VideoModelCard = ({
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-md hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+              className="px-4 py-2.5 bg-gray-50 text-gray-700 rounded-full hover:bg-gray-100 transition-colors border border-gray-200"
               aria-label="View on GitHub"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

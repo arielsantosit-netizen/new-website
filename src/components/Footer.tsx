@@ -1,74 +1,75 @@
+'use client';
+
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black border-t-2 border-[#FF9800] py-12">
-      {/* Orange divider line */}
-      <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#FF9800] to-transparent mb-8"></div>
+    <footer className="bg-white border-t border-[#111111]/10 py-24 relative overflow-hidden">
+      {/* Decorative Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[#111111] to-transparent opacity-10" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-50 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Brand with Logo */}
-          <div className="text-center md:text-left">
-            <div className="flex items-center gap-3 justify-center md:justify-start mb-4">
-              <img src="/ariel-santos-logo.jpg" alt="Ariel Santos" className="h-12 w-auto" />
-              <span className="text-2xl font-bold text-white uppercase" style={{ fontFamily: 'var(--font-poppins)' }}>
-                Ariel Santos
-              </span>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+
+          {/* Brand */}
+          <div className="space-y-8 md:col-span-2">
+            <div className="flex items-center gap-4">
+              <div className="h-20 overflow-hidden">
+                <img src="/logo-new.png" alt="Ariel Santos Logo" className="h-full w-auto object-contain" />
+              </div>
             </div>
-            <p className="text-gray-400 text-sm font-semibold uppercase">
-              TechMentor | IT Consulting & Technology Strategy
-            </p>
-            <p className="text-gray-500 text-sm mt-2">
-              Unlocking your business potential with customized IT strategies
+            <p className="text-xl text-gray-600 max-w-sm font-serif-elegant leading-relaxed">
+              Making technology, career advancement, and lifelong learning accessible to all with clarity and empathy.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div className="text-center">
-            <h3 className="text-white font-bold uppercase text-sm mb-4 border-b border-[#FF9800] pb-2 inline-block">
-              Quick Links
-            </h3>
-            <div className="flex flex-col space-y-2 text-gray-400 text-sm">
-              <a href="#hero" className="hover:text-[#FF9800] transition-colors uppercase font-semibold">
-                Home
+          <div className="space-y-8">
+            <h4 className="text-[#111] font-serif-elegant text-sm uppercase tracking-[0.3em] font-medium">Navigation</h4>
+            <ul className="space-y-4">
+              {['Home', 'About', 'Services', 'Resources', 'Mentorship', 'Contact'].map((item) => (
+                <li key={item}>
+                  <a
+                    href={`#${item.toLowerCase().replace(' ', '-')}`}
+                    className="text-gray-500 hover:text-[#111111] font-serif-elegant transition-colors uppercase text-sm tracking-widest"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="space-y-8">
+            <h4 className="text-[#111] font-serif-elegant text-sm uppercase tracking-[0.3em] font-medium">Inquiries</h4>
+            <div className="space-y-4">
+              <a href="mailto:info@arielsantos.space" className="block text-xl text-[#333] font-serif-elegant hover:text-[#111111] transition-colors">
+                info@arielsantos.space
               </a>
-              <a href="#who-this-is-for" className="hover:text-[#FF9800] transition-colors uppercase font-semibold">
-                About
-              </a>
-              <a href="#work" className="hover:text-[#FF9800] transition-colors uppercase font-semibold">
-                Services
-              </a>
+              <p className="text-gray-500 text-sm font-serif-elegant uppercase tracking-widest leading-loose">
+                Based in the USA<br />
+                Global Deployment Available
+              </p>
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div className="text-center md:text-right">
-            <h3 className="text-white font-bold uppercase text-sm mb-4 border-b border-[#FF9800] pb-2 inline-block">
-              Contact
-            </h3>
-            <div className="text-gray-400 text-sm space-y-2">
-              <p>
-                <a href="mailto:info@arielsantos.space" className="hover:text-[#FF9800] transition-colors">
-                  info@arielsantos.space
-                </a>
-              </p>
-              <p>
-                <a href="https://arielsantos.space" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF9800] transition-colors">
-                  arielsantos.space
-                </a>
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-6 text-center">
-          <p className="text-gray-500 text-xs uppercase font-semibold">
-            © {currentYear} Ariel Santos TechMentor. All rights reserved.
+        <div className="pt-8 border-t border-[#111111]/10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-gray-400 text-xs font-serif-elegant uppercase tracking-widest">
+            © {currentYear} Ariel Santos • Tech Educator & Mentor. All Rights Reserved.
           </p>
+          <div className="flex gap-8">
+            <span className="text-gray-400 text-[10px] font-serif-elegant uppercase tracking-[0.3em]">Precision</span>
+            <span className="text-gray-400 text-[10px] font-serif-elegant uppercase tracking-[0.3em]">Integrity</span>
+            <span className="text-gray-400 text-[10px] font-serif-elegant uppercase tracking-[0.3em]">Impact</span>
+          </div>
         </div>
       </div>
     </footer>

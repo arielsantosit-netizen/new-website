@@ -71,29 +71,7 @@ const ImageSection: React.FC<ImageSectionProps> = ({
   }, []);
 
   useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const tiltX = (e.clientY - centerY) / 10;
-      const tiltY = (centerX - e.clientX) / 10;
-      setTilt({ x: tiltX, y: tiltY });
-    };
-
-    const handleMouseLeave = () => {
-      setTilt({ x: -5, y: 8 });
-    };
-
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
+    // Statis tilt or other visual effects
   }, []);
 
   const getActiveIndex = () => {
@@ -106,23 +84,25 @@ const ImageSection: React.FC<ImageSectionProps> = ({
   const activeIndex = getActiveIndex();
 
   return (
-    <section ref={sectionRef} id="image-section" className="bg-black snap-start relative" style={{ height: 'calc((100vh - 65px) * 4)' }}>
-      <div className="sticky top-0 w-full h-screen relative">
-        <div className="absolute inset-0 z-0 overflow-hidden">
+    <section ref={sectionRef} id="image-section" className="bg-[#fdfdfd] snap-start relative" style={{ height: 'calc((100vh - 65px) * 4)' }}>
+      <div className="sticky top-0 w-full h-screen relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
           <LightRays
             raysOrigin="top-center"
-            raysColor="#FF9800"
-            raysSpeed={1.5}
-            lightSpread={isMobile ? 0.25 : 0.6}
-            rayLength={isMobile ? 5.0 : 1.5}
-            fadeDistance={isMobile ? 0.2 : 1.0}
-            saturation={isMobile ? 2.0 : 1.0}
-            followMouse={!isMobile}
-            mouseInfluence={0.1}
-            noiseAmount={isMobile ? 0.02 : 0.1}
-            distortion={0.05}
+            raysColor="#fbcfe8" // soft pink
+            raysSpeed={1.0}
+            lightSpread={isMobile ? 0.35 : 0.8}
+            rayLength={isMobile ? 3.0 : 2.0}
+            fadeDistance={isMobile ? 0.4 : 1.2}
+            saturation={0.5}
+            followMouse={false}
+            mouseInfluence={0}
+            noiseAmount={0.01}
+            distortion={0.02}
           />
         </div>
+        <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-transparent to-[#fdfdfd]/80 backdrop-blur-[2px]" />
+        
         <div className="relative z-10 w-full h-full flex items-center">
           <div className="max-w-7xl mx-auto px-6 w-full h-full flex items-center pt-[65px]">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full h-full">
@@ -137,17 +117,17 @@ const ImageSection: React.FC<ImageSectionProps> = ({
                         className="absolute inset-0 flex items-center justify-center transition-opacity duration-500"
                         style={{
                           transform: `translateY(${offset}px)`,
-                          opacity: isActive ? 1 : 0.3,
+                          opacity: isActive ? 1 : 0,
                           pointerEvents: isActive ? 'auto' : 'none' as const
                         }}
                       >
-                        <div className="max-w-xl text-center px-4 space-y-6">
+                        <div className="max-w-xl text-center lg:text-left px-4 space-y-6">
                           {isActive && (
                             <>
-                              <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 uppercase">
+                              <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif-elegant text-[#111] mb-6 tracking-wide">
                                 {approach.title}
                               </h3>
-                              <p className="text-gray-300 text-lg leading-relaxed">
+                              <p className="text-gray-600 font-serif-elegant text-lg md:text-xl leading-relaxed tracking-wide">
                                 {approach.description}
                               </p>
                             </>
@@ -158,28 +138,26 @@ const ImageSection: React.FC<ImageSectionProps> = ({
                   })}
                 </div>
               </div>
+              
               <div className="hidden lg:flex relative w-full justify-end items-center h-full">
                 <div className="relative w-full lg:w-auto lg:max-w-xl">
                   <div
                     ref={cardRef}
-                    className="relative rounded-2xl overflow-hidden transition-transform duration-300 ease-out cursor-pointer"
+                    className="relative rounded-[2rem] overflow-hidden transition-transform duration-300 ease-out cursor-pointer shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.15)] bg-white p-4 border border-gray-100"
                     style={{
-                      transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(1, 1, 1)`,
+                      transform: `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`,
                       transformStyle: 'preserve-3d'
                     }}
                   >
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[#FF9800]/50 via-[#FF9800]/30 to-[#FF9800]/50 rounded-2xl blur-xl opacity-50 transition-opacity duration-300 hover:opacity-75"></div>
-                    <div className="relative rounded-2xl overflow-hidden border border-[#FF9800]/30 bg-gradient-to-br from-gray-900/40 via-black/60 to-black backdrop-blur-xl shadow-2xl hover:border-[#FF9800]/50 transition-all duration-300"
-                      style={{ boxShadow: '0 25px 50px -12px rgba(255, 152, 0, 0.25), 0 0 100px -20px rgba(255, 152, 0, 0.15)' }}>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none z-10"></div>
+                    <div className="relative rounded-[1.5rem] overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-pink-50/20 to-blue-50/20 pointer-events-none z-10 mix-blend-overlay"></div>
                       <img
                         src={imagePath}
                         alt={alt}
-                        className="w-full lg:w-auto h-auto object-contain relative z-0"
+                        className="w-full lg:w-auto h-auto object-contain relative z-0 mix-blend-multiply"
                         style={{ maxHeight: '60vh', aspectRatio: '1188 / 1485', maxWidth: '100%' }}
                       />
                     </div>
-                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-4 bg-[#FF9800]/20 blur-2xl rounded-full"></div>
                   </div>
                 </div>
               </div>

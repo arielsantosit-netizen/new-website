@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Navigation from '@/components/Navigation';
 import { trackButtonClick } from '@/lib/analytics';
+import Iridescence from '@/components/Iridescence';
 
 // TypeScript definitions for Web Speech API
 interface SpeechRecognition extends EventTarget {
@@ -446,7 +447,7 @@ const ClassRegistrationForm: React.FC = () => {
                   accumulatedText = data.text;
                   setTranscriptionText(accumulatedText);
                 }
-              } catch (e) {
+              } catch {
                 // Skip invalid JSON
                 console.warn('Failed to parse SSE data:', line);
               }
@@ -570,21 +571,28 @@ const ClassRegistrationForm: React.FC = () => {
   return (
     <>
       <Navigation />
-      <section className="min-h-screen pt-24 px-6 py-12 lg:py-20">
-        <div className="max-w-4xl mx-auto">
+      <section className="min-h-screen pt-24 px-6 py-12 lg:py-20 bg-[#fdfdfd] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-20">
+          <Iridescence
+            speed={0.4}
+            amplitude={0.05}
+            mouseReact={false}
+          />
+        </div>
+        <div className="max-w-4xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif-elegant font-medium text-[#111] mb-4">
               Digital Business Card Generator
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
               Follow the steps to generate a custom prompt for your AI-powered
               website
             </p>
           </div>
 
           {/* Form Container */}
-          <div className="bg-zinc-900/60 rounded-2xl border border-gray-800 p-8 lg:p-12">
+          <div className="bg-white rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 lg:p-12 relative z-10">
             {/* Stepper Header --- [NEW] 5 STEPS --- */}
             <div className="mb-8">
               <div className="flex items-center gap-3">
@@ -596,12 +604,12 @@ const ClassRegistrationForm: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleStepClick(step)}
-                        className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold transition ${
+                        className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-serif-elegant font-medium transition ${
                           isActive
-                            ? 'bg-red-600 text-white'
+                            ? 'bg-[#111] text-white'
                             : isComplete
-                            ? 'bg-red-600/20 text-red-400 border border-red-600/40 cursor-pointer'
-                            : 'bg-zinc-800 text-gray-400 border border-gray-700 cursor-not-allowed'
+                            ? 'bg-gray-100/50 text-gray-500 border border-gray-200 cursor-pointer'
+                            : 'bg-gray-100 text-gray-500 border border-gray-200 cursor-not-allowed'
                         } ${
                           // Make current and next steps clickable
                           (isActive ||
@@ -634,7 +642,7 @@ const ClassRegistrationForm: React.FC = () => {
                       {step !== 5 && (
                         <div
                           className={`h-0.5 flex-1 rounded ${
-                            currentStep > step ? 'bg-red-600' : 'bg-gray-700'
+                            currentStep > step ? 'bg-[#111]' : 'bg-gray-100'
                           }`}
                         />
                       )}
@@ -642,98 +650,79 @@ const ClassRegistrationForm: React.FC = () => {
                   );
                 })}
               </div>
-              <div className="mt-4 flex items-center justify-between text-xs text-gray-400">
-                <span className={currentStep === 1 ? 'text-white' : ''}>
-                  1. Overview
-                </span>
-                <span className={currentStep === 2 ? 'text-white' : ''}>
-                  2. AI Basics
-                </span>
-                <span className={currentStep === 3 ? 'text-white' : ''}>
-                  3. Your Info
-                </span>
-                <span className={currentStep === 4 ? 'text-white' : ''}>
-                  4. Prompt
-                </span>
-                <span className={currentStep === 5 ? 'text-white' : ''}>
-                  5. Finish
-                </span>
+              <div className="mt-4 flex items-center justify-between text-[10px] uppercase tracking-widest font-serif-elegant font-medium text-gray-400 px-1">
+                <span className={currentStep === 1 ? 'text-[#111]' : ''}>1. Overview</span>
+                <span className={currentStep === 2 ? 'text-[#111]' : ''}>2. AI Basics</span>
+                <span className={currentStep === 3 ? 'text-[#111]' : ''}>3. Your Info</span>
+                <span className={currentStep === 4 ? 'text-[#111]' : ''}>4. Prompt</span>
+                <span className={currentStep === 5 ? 'text-[#111]' : ''}>5. Finish</span>
               </div>
             </div>
 
-            {/* Step 1: Overview (Was Intro) --- [NEW] Updated Content --- */}
+            {/* Step 1: Overview */}
             {currentStep === 1 && (
-              <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-white">
-                  What we’ll do today
+              <div className="space-y-6">
+                <h2 className="text-2xl font-serif-elegant font-medium text-[#111]">
+                  Building Your Digital Identity
                 </h2>
-                <ul className="list-disc list-inside text-gray-300 space-y-2">
-                  <li>Briefly learn how AI app development works.</li>
-                  <li>Record or type your professional bio and details.</li>
-                  <li>
-                    Use AI to enhance your bio and generate a custom prompt.
+                <ul className="space-y-4 text-gray-600">
+                  <li className="flex items-start gap-3">
+                    <span className="text-[#111] mt-1">✦</span>
+                    <span>Learn the essentials of AI-powered development.</span>
                   </li>
-                  <li>
-                    Copy that prompt into <strong>Lovable's app building platform</strong> to
-                    build your site.
+                  <li className="flex items-start gap-3">
+                    <span className="text-[#111] mt-1">✦</span>
+                    <span>Record your professional story and expertise.</span>
                   </li>
-                  <li>Make a quick edit and deploy your site to the web!</li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-[#111] mt-1">✦</span>
+                    <span>Generate a production-ready prompt for your site.</span>
+                  </li>
                 </ul>
-                <div className="pt-2">
+                <div className="pt-6">
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition"
+                    className="px-8 py-4 bg-[#111] text-white font-serif-elegant font-medium rounded-full hover:bg-gray-800 transition shadow-lg shadow-gray-200"
                   >
-                    Start
+                    Begin Experience
                   </button>
                 </div>
               </div>
             )}
 
-            {/* --- [NEW] Step 2: AI Basics --- */}
+            {/* --- Step 2: AI Basics --- */}
             {currentStep === 2 && (
-              <div className="space-y-6 text-gray-300 leading-relaxed">
-                <h2 className="text-2xl font-bold text-white">
-                  The "Magic": AI & App Dev Basics
+              <div className="space-y-8 text-gray-600 leading-relaxed">
+                <h2 className="text-2xl font-serif-elegant font-medium text-[#111]">
+                  The Future of Creation
                 </h2>
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
-                    The "Old Way" (Traditional Development)
-                  </h3>
-                  <p>
-                    Normally, to build a website, you'd have to write hundreds
-                    of lines of code in languages like HTML, CSS, and
-                    JavaScript. You'd also need to learn frameworks, databases,
-                    and how to set up a server. It's powerful, but has a very
-                    steep learning curve.
-                  </p>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-lg font-serif-elegant font-medium text-[#111] mb-2 uppercase tracking-wide text-sm">
+                      The Evolution
+                    </h3>
+                    <p>
+                      Traditionally, building digital tools required years of technical study. Today, we bridge that gap with AI. You provide the vision, and AI handles the architecture.
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-serif-elegant font-medium text-[#111] mb-2 uppercase tracking-wide text-sm">
+                      The Process
+                    </h3>
+                    <p>
+                      We'll distill your professional essence into a precise prompt. This prompt is the blueprint that an AI developer uses to manifest your custom digital presence.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
-                    The "New Way" (AI-Powered Development)
-                  </h3>
-                  <p>
-                    Today, we're using a new approach. We will use AI to{' '}
-                    <strong>be</strong> our developer. We'll describe{' '}
-                    <strong>what</strong> we want in plain English (our
-                    "prompt"), and an AI platform like{' '}
-                    <strong>Lovable's app building platform</strong> will write all that complex
-                    code <strong>for</strong> us.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
-                    What We Are (and Aren't) Building
-                  </h3>
-                  <p>
-                    Our site today is a simple "static" site—it just displays
-                    information. More complex apps might need a{' '}
-                    <strong>database</strong> (to store user signups) or{' '}
-                    <strong>authentication</strong> (to let users log in). We
-                    aren't doing that today, but it's good to know those are the
-                    "next steps" in app development.
-                  </p>
+                <div className="pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(3)}
+                    className="px-8 py-4 bg-[#111] text-white font-serif-elegant font-medium rounded-full hover:bg-gray-800 transition shadow-lg shadow-gray-200"
+                  >
+                    Continue to Form
+                  </button>
                 </div>
               </div>
             )}
@@ -749,16 +738,16 @@ const ClassRegistrationForm: React.FC = () => {
               >
                 {/* Personal Information */}
                 <div className="space-y-6">
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    Your Information
+                  <h2 className="text-2xl font-serif-elegant font-medium text-[#111] mb-2">
+                    Professional Context
                   </h2>
 
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-sm text-gray-400 mb-2"
+                      className="block text-xs uppercase tracking-widest font-serif-elegant font-medium text-gray-500 mb-2"
                     >
-                      Name <span className="text-red-500">*</span>
+                      Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       id="name"
@@ -784,7 +773,7 @@ const ClassRegistrationForm: React.FC = () => {
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       required
-                      className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                      className="w-full bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all placeholder:text-gray-300"
                       placeholder="Software Engineer, Product Manager, etc."
                     />
                   </div>
@@ -805,7 +794,7 @@ const ClassRegistrationForm: React.FC = () => {
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                       required
-                      className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                      className="w-full bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all placeholder:text-gray-300"
                       placeholder="New York, NY or London, UK"
                     />
                   </div>
@@ -823,7 +812,7 @@ const ClassRegistrationForm: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                      className="w-full bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all placeholder:text-gray-300"
                       placeholder="jane@example.com"
                     />
                   </div>
@@ -831,8 +820,8 @@ const ClassRegistrationForm: React.FC = () => {
 
                 {/* Additional Information */}
                 <div className="space-y-6">
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    Additional Information
+                  <h2 className="text-2xl font-serif-elegant font-medium text-[#111] mb-2">
+                    Extended Network
                   </h2>
 
                   <div>
@@ -848,7 +837,7 @@ const ClassRegistrationForm: React.FC = () => {
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                      className="w-full bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all placeholder:text-gray-300"
                       placeholder="(555) 555-5555"
                     />
                   </div>
@@ -866,7 +855,7 @@ const ClassRegistrationForm: React.FC = () => {
                       type="url"
                       value={website}
                       onChange={(e) => setWebsite(e.target.value)}
-                      className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                      className="w-full bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all placeholder:text-gray-300"
                       placeholder="https://yourwebsite.com"
                     />
                   </div>
@@ -884,7 +873,7 @@ const ClassRegistrationForm: React.FC = () => {
                       type="text"
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
-                      className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                      className="w-full bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all placeholder:text-gray-300"
                       placeholder="Acme Inc."
                     />
                   </div>
@@ -902,7 +891,7 @@ const ClassRegistrationForm: React.FC = () => {
                       type="text"
                       value={industry}
                       onChange={(e) => setIndustry(e.target.value)}
-                      className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                      className="w-full bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all placeholder:text-gray-300"
                       placeholder="Technology, Healthcare, Finance, etc."
                     />
                   </div>
@@ -920,16 +909,16 @@ const ClassRegistrationForm: React.FC = () => {
                         {socialLinks.map((social, index) => (
                           <div
                             key={index}
-                            className="flex items-center gap-2 p-3 bg-zinc-800/50 rounded-lg border border-gray-700"
+                            className="flex items-center gap-2 p-3 bg-gray-50 rounded-xl border border-gray-100"
                           >
-                            <span className="text-white font-medium text-sm flex-1">
+                            <span className="text-[#111] font-serif-elegant font-medium text-sm flex-1">
                               {social.platform}
                             </span>
                             <a
                               href={social.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-red-400 hover:text-red-300 text-sm truncate max-w-xs"
+                              className="text-gray-500 hover:text-[#111] text-xs underline underline-offset-4 truncate max-w-xs transition-colors"
                             >
                               {social.url}
                             </a>
@@ -941,7 +930,7 @@ const ClassRegistrationForm: React.FC = () => {
                                 );
                                 setSocialLinks(updated);
                               }}
-                              className="text-gray-400 hover:text-red-400 transition-colors"
+                              className="text-gray-300 hover:text-[#111] transition-colors"
                               title="Remove"
                             >
                               <svg
@@ -965,26 +954,26 @@ const ClassRegistrationForm: React.FC = () => {
 
                     {/* Add Social Button / Form */}
                     {!showAddSocial ? (
-                      <button
-                        type="button"
-                        onClick={() => setShowAddSocial(true)}
-                        className="w-full px-4 py-2 bg-zinc-800/50 text-gray-300 rounded-lg border border-gray-700 hover:bg-zinc-800 hover:border-gray-600 transition-colors flex items-center justify-center gap-2"
-                      >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                        <button
+                          type="button"
+                          onClick={() => setShowAddSocial(true)}
+                          className="w-full px-4 py-3 bg-gray-50 text-gray-500 rounded-xl border border-gray-100 hover:bg-gray-100 hover:border-gray-200 transition-all flex items-center justify-center gap-2 text-sm font-serif-elegant font-medium"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M12 4v16m8-8H4"
-                          />
-                        </svg>
-                        <span>Add Social</span>
-                      </button>
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M12 4v16m8-8H4"
+                            />
+                          </svg>
+                          <span>Add Social Link</span>
+                        </button>
                     ) : (
                       <div className="p-4 bg-zinc-800/50 rounded-lg border border-gray-700 space-y-3">
                         <div>
@@ -1018,10 +1007,10 @@ const ClassRegistrationForm: React.FC = () => {
                             value={newSocialUrl}
                             onChange={(e) => setNewSocialUrl(e.target.value)}
                             placeholder="https://..."
-                            className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-10 px-3 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all text-sm"
+                            className="w-full bg-white text-[#111] rounded-lg border border-gray-200 h-10 px-3 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all text-sm"
                           />
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 pt-1">
                           <button
                             type="button"
                             onClick={() => {
@@ -1038,19 +1027,14 @@ const ClassRegistrationForm: React.FC = () => {
                                 setShowAddSocial(false);
                               }
                             }}
-                            disabled={!newSocialPlatform || !newSocialUrl}
-                            className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-semibold"
+                            className="px-4 py-2 bg-[#111] text-white text-xs font-serif-elegant font-medium rounded-full hover:bg-gray-800 transition shadow-md shadow-gray-100"
                           >
                             Add
                           </button>
                           <button
                             type="button"
-                            onClick={() => {
-                              setShowAddSocial(false);
-                              setNewSocialPlatform('');
-                              setNewSocialUrl('');
-                            }}
-                            className="px-4 py-2 bg-zinc-700 text-gray-300 rounded-lg hover:bg-zinc-600 transition-colors text-sm"
+                            onClick={() => setShowAddSocial(false)}
+                            className="px-4 py-2 bg-gray-100 text-gray-500 text-xs font-serif-elegant font-medium rounded-full hover:bg-gray-200 transition"
                           >
                             Cancel
                           </button>
@@ -1071,14 +1055,14 @@ const ClassRegistrationForm: React.FC = () => {
                         offer - 2-3 short paragraphs)
                       </span>
                     </label>
-                    <div className="relative bg-zinc-900 rounded-lg border border-gray-700 flex flex-col focus-within:ring-2 focus-within:ring-red-600 focus-within:border-red-600 transition-all">
+                    <div className="relative bg-white rounded-xl border border-gray-200 flex flex-col focus-within:ring-2 focus-within:ring-[#111]/5 focus-within:border-[#111] transition-all">
                       <textarea
                         id="bio"
                         value={bio}
                         onChange={(e) => setBio(e.target.value)}
                         required
                         rows={6}
-                        className="w-full bg-transparent text-white px-4 py-3 pb-3 focus:outline-none transition-all resize-y overflow-y-auto flex-1 min-h-[150px] seamless-scrollbar"
+                        className="w-full bg-transparent text-[#111] px-4 py-3 pb-3 focus:outline-none transition-all resize-y overflow-y-auto flex-1 min-h-[150px] seamless-scrollbar"
                         placeholder="Tell us about your company, what services or products you offer, your background, and what makes you unique..."
                       />
                       {/* Footer with controls */}
@@ -1088,10 +1072,10 @@ const ClassRegistrationForm: React.FC = () => {
                           <button
                             type="button"
                             onClick={isRecording ? stopRecording : startRecording}
-                            className={`p-2 rounded-lg transition-all ${
+                            className={`p-2.5 rounded-full transition-all ${
                               isRecording
-                                ? 'bg-red-600 hover:bg-red-700 animate-pulse'
-                                : 'bg-zinc-800 hover:bg-zinc-700 border border-gray-700'
+                                ? 'bg-[#111] hover:bg-gray-800 animate-pulse'
+                                : 'bg-gray-50 hover:bg-gray-100 border border-gray-100'
                             }`}
                             title={
                               isRecording
@@ -1099,45 +1083,45 @@ const ClassRegistrationForm: React.FC = () => {
                                 : 'Start voice recording'
                             }
                           >
-                            {isRecording ? (
-                              <svg
-                                className="w-4 h-4 text-white"
-                                fill="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <rect
-                                  x="6"
-                                  y="6"
-                                  width="12"
-                                  height="12"
-                                  rx="2"
-                                />
-                              </svg>
-                            ) : (
-                              <svg
-                                className="w-4 h-4 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                                />
-                              </svg>
-                            )}
+                             {isRecording ? (
+                                <svg
+                                  className="w-4 h-4 text-white"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <rect
+                                    x="6"
+                                    y="6"
+                                    width="12"
+                                    height="12"
+                                    rx="1"
+                                  />
+                                </svg>
+                              ) : (
+                                <svg
+                                  className="w-4 h-4 text-[#111]"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                                  />
+                                </svg>
+                              )}
                           </button>
                           {/* Recording Indicator - Next to pause button */}
                           {isRecording && (
-                            <div className="px-2 py-1 bg-red-600/20 border border-red-600/50 rounded text-xs text-red-400 flex items-center gap-1.5">
+                            <div className="px-2 py-1 bg-red-50 border border-red-100 rounded text-xs text-red-500 flex items-center gap-1.5">
                               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
                               <span>Recording...</span>
                             </div>
                           )}
                           {transcriptionText && !isRecording && (
-                            <div className="px-2 py-1 bg-green-600/20 border border-green-600/50 rounded text-xs text-green-400">
+                            <div className="px-2 py-1 bg-green-50 border border-green-100 rounded text-xs text-green-600">
                               Transcribing...
                             </div>
                           )}
@@ -1149,7 +1133,7 @@ const ClassRegistrationForm: React.FC = () => {
                           disabled={
                             isEnhancingBio || !name || !title || !location || !bio
                           }
-                          className="px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white text-xs font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
+                          className="px-4 py-2 bg-[#111] text-white text-[10px] uppercase tracking-widest font-serif-elegant font-medium rounded-full hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 shadow-md shadow-gray-100"
                           title="Enhance bio with AI"
                         >
                           {isEnhancingBio ? (
@@ -1207,7 +1191,7 @@ const ClassRegistrationForm: React.FC = () => {
 
                 {/* Profile Image */}
                 <div className="space-y-4">
-                  <h2 className="text-2xl font-bold text-white mb-2">
+                  <h2 className="text-2xl font-serif-elegant font-medium text-[#111] mb-2">
                     Profile Image (Optional)
                   </h2>
                   <p className="text-sm text-gray-400 mb-4">
@@ -1220,7 +1204,7 @@ const ClassRegistrationForm: React.FC = () => {
                     <div className="space-y-2">
                       <label
                         htmlFor="profileImageUrl"
-                        className="block text-sm font-medium text-gray-300"
+                        className="block text-sm font-medium text-gray-500"
                       >
                         Image URL
                       </label>
@@ -1230,14 +1214,14 @@ const ClassRegistrationForm: React.FC = () => {
                         value={profileImageUrl}
                         onChange={handleUrlChange}
                         disabled={!!profileImageFile}
-                        className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         placeholder="https://example.com/image.jpg"
                       />
                     </div>
 
                     {/* File Upload */}
                     <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-300">
+                      <label className="block text-sm font-medium text-gray-500">
                         Upload File
                       </label>
                       <div
@@ -1248,10 +1232,10 @@ const ClassRegistrationForm: React.FC = () => {
                               ?.click();
                           }
                         }}
-                        className={`relative w-full h-12 bg-zinc-900 rounded-lg border-2 border-dashed transition-all cursor-pointer ${
+                        className={`relative w-full h-12 bg-white rounded-xl border-2 border-dashed transition-all cursor-pointer ${
                           profileImageUrl
-                            ? 'border-gray-700 opacity-50 cursor-not-allowed'
-                            : 'border-gray-700 hover:border-red-600 hover:bg-zinc-800'
+                            ? 'border-gray-200 opacity-50 cursor-not-allowed'
+                            : 'border-gray-200 hover:border-[#111] hover:bg-gray-50'
                         }`}
                       >
                         <div className="flex items-center justify-center h-full px-4 gap-2">
@@ -1268,7 +1252,7 @@ const ClassRegistrationForm: React.FC = () => {
                               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                             />
                           </svg>
-                          <span className="text-sm text-gray-300 truncate">
+                          <span className="text-sm text-gray-400 truncate">
                             {profileImageFile
                               ? profileImageFile.name
                               : 'Click to upload'}
@@ -1288,8 +1272,8 @@ const ClassRegistrationForm: React.FC = () => {
 
                   {/* Preview */}
                   {imagePreview && (
-                    <div className="flex items-center gap-4 p-4 bg-zinc-900/50 rounded-lg border border-gray-700">
-                      <div className="relative w-20 h-20 rounded-lg overflow-hidden border-2 border-red-600 flex-shrink-0">
+                    <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-gray-200 flex-shrink-0">
                         <img
                           src={imagePreview}
                           alt="Profile preview"
@@ -1297,7 +1281,7 @@ const ClassRegistrationForm: React.FC = () => {
                         />
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-white">
+                        <p className="text-sm font-medium text-[#111]">
                           Image Preview
                         </p>
                         <p className="text-xs text-gray-400 mt-1">
@@ -1311,7 +1295,7 @@ const ClassRegistrationForm: React.FC = () => {
                           setProfileImageUrl('');
                           setImagePreview(null);
                         }}
-                        className="text-gray-400 hover:text-red-400 transition-colors"
+                        className="text-gray-400 hover:text-[#111] transition-colors"
                         title="Remove image"
                       >
                         <svg
@@ -1332,10 +1316,10 @@ const ClassRegistrationForm: React.FC = () => {
                   )}
                 </div>
 
-                {/* Color Palette */}
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    Color Palette
+                {/* Visual Identity */}
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-serif-elegant font-medium text-[#111] mb-2">
+                    Visual Identity
                   </h2>
                   <p className="text-sm text-gray-400 mb-4">
                     Choose your color scheme (hex codes will be included in the
@@ -1388,7 +1372,7 @@ const ClassRegistrationForm: React.FC = () => {
                           type="text"
                           value={secondaryColor}
                           onChange={(e) => setSecondaryColor(e.target.value)}
-                          className="flex-1 bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all font-mono text-sm"
+                          className="flex-1 bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all font-mono text-xs"
                           placeholder="#991b1b"
                           pattern="^#[0-9A-Fa-f]{6}$"
                         />
@@ -1414,7 +1398,7 @@ const ClassRegistrationForm: React.FC = () => {
                           type="text"
                           value={tertiaryColor}
                           onChange={(e) => setTertiaryColor(e.target.value)}
-                          className="flex-1 bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all font-mono text-sm"
+                          className="flex-1 bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all font-mono text-xs"
                           placeholder="#fef2f2"
                           pattern="^#[0-9A-Fa-f]{6}$"
                         />
@@ -1440,7 +1424,7 @@ const ClassRegistrationForm: React.FC = () => {
                           type="text"
                           value={textColor}
                           onChange={(e) => setTextColor(e.target.value)}
-                          className="flex-1 bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all font-mono text-sm"
+                          className="flex-1 bg-white text-[#111] rounded-xl border border-gray-200 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-[#111]/5 focus:border-[#111] transition-all font-mono text-xs"
                           placeholder="#000000"
                           pattern="^#[0-9A-Fa-f]{6}$"
                         />
@@ -1450,16 +1434,21 @@ const ClassRegistrationForm: React.FC = () => {
                 </div>
 
                 {/* Generate Button */}
-                <div className="pt-4">
+                <div className="pt-8 border-t border-gray-100 italic text-gray-400 text-xs text-center">
+                  Fields marked with <span className="text-red-500">*</span> are
+                  required for an optimal AI profile.
+                </div>
+
+                <div className="pt-6">
                   <button
                     type="submit"
-                    disabled={!isFormValid || isGeneratingPrompt}
-                    className="w-full px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-lg hover:shadow-red-600/50 disabled:opacity-50 disabled:cursor-not-allowed text-lg flex items-center justify-center gap-2"
+                    disabled={isGeneratingPrompt || !isFormValid}
+                    className="w-full py-4 bg-[#111] text-white font-serif-elegant font-medium rounded-full hover:bg-gray-800 transition transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-gray-200 flex items-center justify-center gap-3"
                   >
                     {isGeneratingPrompt ? (
                       <>
                         <svg
-                          className="animate-spin h-5 w-5"
+                          className="animate-spin h-5 w-5 text-white"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -1478,10 +1467,11 @@ const ClassRegistrationForm: React.FC = () => {
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                           ></path>
                         </svg>
-                        <span>Generating Optimized Prompt...</span>
+                        <span>Architecting Prompt...</span>
                       </>
                     ) : (
                       <>
+                        <span>Generate Professional Prompt</span>
                         <svg
                           className="w-5 h-5"
                           fill="none"
@@ -1492,10 +1482,9 @@ const ClassRegistrationForm: React.FC = () => {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
                           />
                         </svg>
-                        <span>Generate AI Prompt</span>
                       </>
                     )}
                   </button>
@@ -1506,16 +1495,16 @@ const ClassRegistrationForm: React.FC = () => {
               </form>
             )}
 
-            {/* Prompt Tab Content --- [NEW] Now Step 4 --- */}
+            {/* Step 4: Prompt Output */}
             {currentStep === 4 && generatedPrompt && (
               <div className="space-y-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-white">
-                    Generated Prompt
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-2xl font-serif-elegant font-medium text-[#111]">
+                    Your Digital Blueprint
                   </h2>
                   <button
                     onClick={copyToClipboard}
-                    className="px-4 py-2 bg-zinc-800 text-white rounded-lg border border-gray-700 hover:bg-zinc-700 transition-colors flex items-center gap-2"
+                    className="px-5 py-2.5 bg-[#111] text-white rounded-full hover:bg-gray-800 transition-all flex items-center gap-2 text-xs font-serif-elegant font-medium shadow-md shadow-gray-100"
                   >
                     {copied ? (
                       <>
@@ -1554,58 +1543,58 @@ const ClassRegistrationForm: React.FC = () => {
                     )}
                   </button>
                 </div>
-                <div className="bg-black/50 rounded-lg border border-gray-700 p-6">
-                  <pre className="text-gray-300 whitespace-pre-wrap font-mono text-sm leading-relaxed">
+                <div className="bg-gray-50 rounded-2xl border border-gray-100 p-6 shadow-inner">
+                  <pre className="text-gray-600 whitespace-pre-wrap font-mono text-xs leading-relaxed">
                     {generatedPrompt}
                   </pre>
                 </div>
                 {/* --- [NEW] Updated Help Text --- */}
-                <p className="text-sm text-gray-400 mt-4">
-                  Now, copy this prompt. We will go to{' '}
-                  <strong>Lovable's app building platform</strong> together and paste this in to
-                  build your website!
+                <p className="text-xs text-gray-400 mt-4 italic text-center">
+                  Copy this blueprint and follow the guidance in the next step to manifest your digital presence.
                 </p>
 
                 {/* Edit Form Button */}
-                <div className="pt-4 border-t border-gray-700">
+                <div className="pt-6 border-t border-gray-50">
                   <button
                     type="button"
-                    onClick={() => setCurrentStep(3)} // [NEW] Go back to step 3
-                    className="w-full px-8 py-4 bg-zinc-800 text-white font-bold rounded-xl hover:bg-zinc-700 transition-all duration-300 border border-gray-700 hover:border-gray-600 text-lg"
+                    onClick={() => setCurrentStep(3)}
+                    className="w-full px-8 py-4 bg-white text-gray-500 font-serif-elegant font-medium rounded-full hover:bg-gray-50 transition border border-gray-100 text-sm"
                   >
-                    Edit Form & Generate Again
+                    Return to Designer
                   </button>
                 </div>
               </div>
             )}
 
-            {/* Step 5: Finish --- [NEW] Now Step 5 --- */}
+            {/* Step 5: Finish */}
             {currentStep === 5 && (
-              <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-white">All set!</h2>
-                <p className="text-gray-300">
-                  You've generated your prompt and are ready for the next
-                  stage: building in <strong>Lovable's app building platform</strong>.
-                  <br />
-                  You can go back to make edits or copy the prompt again.
+              <div className="space-y-6 text-center py-8">
+                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-100">
+                  <span className="text-2xl">✨</span>
+                </div>
+                <h2 className="text-3xl font-serif-elegant font-medium text-[#111]">
+                  Experience Ready
+                </h2>
+                <p className="text-gray-600 max-w-sm mx-auto">
+                  Your professional prompt is prepared. You are now equipped to build your unique digital environment.
                 </p>
-                <div className="flex gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(3)} // [NEW] Go back to step 3
-                    className="px-4 py-2 bg-zinc-800 text-white rounded-lg border border-gray-700 hover:bg-zinc-700 transition"
-                  >
-                    Back to Form
-                  </button>
+                <div className="flex flex-col gap-3 pt-4">
                   {generatedPrompt && (
                     <button
                       type="button"
                       onClick={copyToClipboard}
-                      className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                      className="px-8 py-4 bg-[#111] text-white font-serif-elegant font-medium rounded-full hover:bg-gray-800 transition shadow-lg shadow-gray-200 flex items-center justify-center gap-2"
                     >
-                      {copied ? 'Copied!' : 'Copy Prompt'}
+                      <span>{copied ? 'Successfully Copied' : 'Copy Digital Prompt'}</span>
                     </button>
                   )}
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(3)}
+                    className="px-6 py-2 text-gray-400 hover:text-[#111] transition text-xs font-serif-elegant uppercase tracking-widest"
+                  >
+                    Editor
+                  </button>
                 </div>
               </div>
             )}
@@ -1615,10 +1604,10 @@ const ClassRegistrationForm: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setCurrentStep((s) => Math.max(1, s - 1))}
-                className={`px-4 py-2 rounded-lg border transition ${
+                className={`px-6 py-2 rounded-full border transition font-serif-elegant font-medium text-xs uppercase tracking-widest ${
                   currentStep === 1
-                    ? 'opacity-30 cursor-not-allowed border-gray-700 text-gray-500'
-                    : 'border-gray-700 text-gray-300 hover:bg-zinc-800'
+                    ? 'opacity-20 cursor-not-allowed border-gray-100 text-gray-300'
+                    : 'border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-[#111]'
                 }`}
                 disabled={currentStep === 1}
               >
@@ -1637,14 +1626,9 @@ const ClassRegistrationForm: React.FC = () => {
                       handleStepClick(currentStep + 1);
                     }
                   }}
-                  className={`px-4 py-2 rounded-lg transition ${'bg-red-600 text-white hover:bg-red-700'}
-                  ${
-                    // Special style for "Generate" on Form step
-                    currentStep === 3
-                      ? 'disabled:opacity-50 disabled:cursor-not-allowed'
-                      : ''
-                  }
-                  `}
+                  className={`px-8 py-2 rounded-full transition font-serif-elegant font-medium text-xs uppercase tracking-widest shadow-sm ${
+                    'bg-[#111] text-white hover:bg-gray-800 shadow-gray-100'
+                  }`}
                   // Disable on Form step if invalid or generating
                   disabled={
                     (currentStep === 3 && !isFormValid) || isGeneratingPrompt
@@ -1660,29 +1644,23 @@ const ClassRegistrationForm: React.FC = () => {
             </div>
           </div>
 
-          {/* Instructions --- [NEW] Updated Text --- */}
-          <div className="mt-12 bg-zinc-900/40 rounded-2xl border border-gray-800 p-8">
-            <h2 className="text-2xl font-bold text-white mb-4">How to Use</h2>
-            <ol className="space-y-3 text-gray-300 list-decimal list-inside">
-              <li>
-                Follow the steps above to add your info and learn the basics.
-              </li>
-              <li>
-                Fill in all your information on the <strong>"Your Info"</strong>{' '}
-                page (Step 3).
-              </li>
-              <li>
-                Click &quot;Generate AI Prompt&quot; to create your custom
-                instructions.
-              </li>
-              <li>
-                On the <strong>"Prompt"</strong> page (Step 4), click "Copy
-                Prompt".
-              </li>
-              <li>
-                We will then go to <strong>Lovable's app building platform</strong> together and
-                paste this prompt to build your website!
-              </li>
+          {/* Instructions */}
+          <div className="mt-12 bg-white rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] p-8 lg:p-12 relative z-10">
+            <h2 className="text-2xl font-serif-elegant font-medium text-[#111] mb-6">Execution Guide</h2>
+            <ol className="space-y-6">
+              {[
+                "Share your professional narrative and context.",
+                "Architect your specialized AI prompt.",
+                "Copy the visual and functional blueprint.",
+                "Import the blueprint into your choice of development environment."
+              ].map((text, i) => (
+                <li key={i} className="flex items-start gap-4">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-[10px] font-serif-elegant text-gray-400">
+                    {i + 1}
+                  </span>
+                  <span className="text-gray-600 text-sm">{text}</span>
+                </li>
+              ))}
             </ol>
           </div>
         </div>

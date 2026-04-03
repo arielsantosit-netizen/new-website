@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat, Poppins, Nunito } from "next/font/google";
+import { Inter, Montserrat, Pinyon_Script, Cormorant_Garamond } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import NavigationWrapper from "@/components/NavigationWrapper";
@@ -19,38 +19,37 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const pinyonScript = Pinyon_Script({
+  weight: "400",
+  variable: "--font-pinyon",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const nunito = Nunito({
-  variable: "--font-nunito",
+const cormorant = Cormorant_Garamond({
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://arielsantos.space'),
-  title: "Ariel Santos — TechMentor | IT Consultant & Technology Strategist",
-  description: "Air Force veteran, Navy Reservist, and IT professional with over a decade of experience. TechMentor provides comprehensive IT solutions including cloud computing, network architecture, web development, and IT support.",
-  keywords: ["Ariel Santos", "TechMentor", "IT Consultant", "Technology Strategist", "Cloud Computing", "Network Architecture", "Web Development", "IT Services", "IT Support", "Military Veteran", "Navy Reservist"],
+  title: "Ariel Santos — Tech Educator & Mentor",
+  description: "IT Educator and Tech Mentor. Providing comprehensive IT solutions, education, and strategy.",
+  keywords: ["Ariel Santos", "Tech Educator", "Mentor", "IT Consultant", "Technology Strategist"],
   authors: [{ name: "Ariel Santos" }],
   icons: {
     icon: [
-      { url: '/favicon 1.png', type: 'image/png' },
-      { url: '/ariel-santos-logo.jpg', sizes: '192x192', type: 'image/jpeg' },
+      { url: '/logo-new.png', type: 'image/png' },
     ],
     apple: [
-      { url: '/ariel-santos-logo.jpg', sizes: '180x180', type: 'image/jpeg' },
+      { url: '/logo-new.png', sizes: '180x180', type: 'image/png' },
     ],
   },
   openGraph: {
-    title: "Ariel Santos — TechMentor | IT Consultant & Technology Strategist",
-    description: "Professional IT solutions from a military veteran with over a decade of experience. TechMentor specializes in cloud computing, network architecture, and technology strategy.",
+    title: "Ariel Santos — Tech Educator & Mentor",
+    description: "Professional IT education and mentoring from Ariel Santos.",
     type: "website",
   },
 };
@@ -63,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth snap-y overscroll-y-contain" style={{ scrollPaddingTop: '65px' }}>
       <body
-        className={`${inter.variable} ${montserrat.variable} ${poppins.variable} ${nunito.variable} antialiased bg-black text-white`}
+        className={`${inter.variable} ${montserrat.variable} ${pinyonScript.variable} ${cormorant.variable} antialiased bg-theme-light text-theme-dark`}
         suppressHydrationWarning
       >
         {/* Google tag (gtag.js) */}

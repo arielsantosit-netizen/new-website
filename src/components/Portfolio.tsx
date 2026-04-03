@@ -1,329 +1,157 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const projects = [
+  {
+    title: "Mentorship Programs",
+    tag: "1-on-1 & Specialized",
+    description: "Structured guidance for career changers and veterans. Build real-world skills and land your next role.",
+    details: ["Career Transitions", "Veteran Tech Support", "Ongoing Roadmap Support"],
+    tech: "TECH • CAREER • GROWTH",
+    icon: "🤝"
+  },
+  {
+    title: "Educational Content",
+    tag: "Guides & Tutorials",
+    description: "Clear, practical resources designed for all backgrounds. Written guides, video lessons, and podcasts.",
+    details: ["Written Tutorials", "Video Explainers", "Downloadable Roadmaps"],
+    tech: "LEARN • ACCESSIBILITY",
+    icon: "📚"
+  },
+  {
+    title: "Workshops & Speaking",
+    tag: "Corporate & Public",
+    description: "Training on cybersecurity, digital transformation, and workforce development for teams and events.",
+    details: ["Team Training", "Public Workshops", "Panel Participation"],
+    tech: "SPEAK • TRAIN • LEAD",
+    icon: "🎤"
+  },
+  {
+    title: "Career Coaching",
+    tag: "Placement Strategy",
+    description: "Personalized support for resume optimization, LinkedIn presence, and interview preparation.",
+    details: ["Resume & LinkedIn", "Technical Interviews", "Strategy Sessions"],
+    tech: "STRATEGY • COACH • EXECUTE",
+    icon: "⚡"
+  }
+];
 
 const Portfolio: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  const projects = [
-    {
-      title: "Cloud Architecture & Mentoring",
-      tag: "Build & Learn Infrastructure",
-      description: "Designing scalable cloud solutions while training your team to manage and optimize them independently.",
-      details: [
-        "Cloud strategy workshops",
-        "Infrastructure-as-Code training",
-        "Secure cloud storage solutions",
-        "Cloud security best practices coaching"
-      ],
-      benefits: "Reduce infrastructure costs while empowering your team with the skills to manage cloud environments confidently.",
-      tech: "AWS • Azure • Google Cloud • Cloud Security Tools"
-    },
-    {
-      title: "IT Operations & Team Training",
-      tag: "Empowering Your Team",
-      description: "Moving beyond break/fix support to empower your internal team with the skills to maintain operational excellence.",
-      features: [
-        "Help desk workflow training",
-        "System administration coaching",
-        "IT documentation workshops",
-        "Proactive maintenance strategies"
-      ],
-      impact: "Transform your IT from a cost center to a strategic asset by building internal capabilities and reducing reliance on external support.",
-      tech: "Remote Support Tools • Monitoring Systems • Ticketing Platforms"
-    },
-    {
-      title: "Network Strategy & Education",
-      tag: "Connectivity & Knowledge",
-      description: "Building robust networks and educating your staff on connectivity fundamentals and troubleshooting.",
-      details: [
-        "Network design sessions",
-        "WiFi optimization training",
-        "Connectivity troubleshooting guides",
-        "Network security fundamentals"
-      ],
-      benefits: "Stay connected with reliable networks and a team that understands how to keep them running efficiently.",
-      tech: "Cisco • Ubiquiti • Enterprise WiFi • VPN Solutions"
-    },
-    {
-      title: "Digital Presence Coaching",
-      tag: "Own Your Web Strategy",
-      description: "Building your digital presence while teaching you how to maintain, update, and grow your website.",
-      features: [
-        "Custom website development",
-        "Content management training",
-        "SEO fundamentals workshops",
-        "Analytics interpretation coaching"
-      ],
-      impact: "Take control of your digital narrative with a professional website and the knowledge to manage it effectively.",
-      tech: "React • Next.js • WordPress • Modern Web Technologies",
-      cta: "Get Started"
-    },
-    {
-      title: "Strategic Tech Audit",
-      tag: "Educational Assessment",
-      description: "A deep-dive analysis of your systems accompanied by educational sessions on identified risks and opportunities.",
-      learnings: [
-        "Comprehensive system reviews",
-        "Risk explanation sessions",
-        "Strategic roadmap planning",
-        "Security vulnerability education"
-      ],
-      benefits: "Understand your IT infrastructure inside and out. Know exactly where to invest for maximum impact.",
-      tech: "Assessment Tools • Security Scanners • Performance Monitors"
-    },
-    {
-      title: "Operational Excellence Workshops",
-      tag: "Resilience Training",
-      description: "Training your organization to build and maintain resilient, fail-safe systems that withstand challenges.",
-      details: [
-        "Disaster recovery drills",
-        "Business continuity workshops",
-        "System hardening training",
-        "Performance optimization coaching"
-      ],
-      impact: "Build a resilient organization that can weather any storm through preparation, training, and robust systems.",
-      tech: "Monitoring Tools • Backup Solutions • High Availability Systems"
-    }
-  ];
-
-  // Detect which card is in the center of the viewport (desktop only)
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) return;
-
-    const detectCenterCard = () => {
-      if (!scrollContainerRef.current) return;
-
-      const containerRect = scrollContainerRef.current.getBoundingClientRect();
-      const centerY = containerRect.top + containerRect.height / 2;
-      const threshold = 100;
-
-      let closestIndex = 0;
-      let closestDistance = Infinity;
-      let cardInCenterZone = false;
-
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
-
-        const cardRect = card.getBoundingClientRect();
-        const cardCenterY = cardRect.top + cardRect.height / 2;
-        const distance = Math.abs(cardCenterY - centerY);
-
-        if (distance < threshold) {
-          cardInCenterZone = true;
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestIndex = index % projects.length;
-          }
-        } else if (!cardInCenterZone && distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index % projects.length;
-        }
-      });
-
-      if (cardInCenterZone && closestIndex !== activeIndex) {
-        setIsTransitioning(true);
-        setTimeout(() => {
-          setActiveIndex(closestIndex);
-          setIsTransitioning(false);
-        }, 400);
-      }
-    };
-
-    const interval = setInterval(detectCenterCard, 300);
-    return () => clearInterval(interval);
-  }, [activeIndex, projects.length]);
-
-  // Auto-cycle through projects on mobile every 5 seconds
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) return;
-
-    const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setActiveIndex((prevIndex) => (prevIndex + 1) % projects.length);
-        setIsTransitioning(false);
-      }, 400);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [activeIndex, projects.length]);
-
-  const activeProject = projects[activeIndex];
+  const [selected, setSelected] = useState(0);
 
   return (
-    <section id="work" className="min-h-screen lg:h-screen bg-black lg:overflow-hidden lg:relative snap-start">
-      <div className="h-full">
-        {/* Main Content Area */}
-        <div className="lg:flex h-full">
-          <div className="max-w-7xl w-full mx-auto px-6 h-full">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-12 h-full lg:items-start">
-              {/* Left Side - Active Project Details */}
-              <div className="flex flex-col items-start justify-start h-full lg:overflow-y-auto scrollbar-hide lg:pl-0 py-8">
-                {/* Static Title Section */}
-                <div className="mb-6 max-w-2xl w-full">
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 text-white">
-                    IT Services & Solutions
-                  </h2>
-                  <p className="text-gray-300 text-lg max-w-3xl">
-                    Comprehensive IT solutions tailored to unlock your business potential and keep you running efficiently.
-                  </p>
-                </div>
+    <section id="work" className="bg-[#fdfdfd] py-24 lg:py-40 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-[#f4d9df]/20 to-[#fdf5d6]/20 blur-[150px] rounded-full pointer-events-none" />
 
-                {/* Dynamic Project Content */}
-                <div
-                  className={`space-y-6 max-w-2xl w-full transition-opacity duration-700 ${isTransitioning ? 'opacity-0' : 'opacity-100'
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-stretch">
+
+          {/* Left: Titles / Navigation */}
+          <div className="lg:w-1/2 flex flex-col space-y-10">
+            <div>
+              <motion.span
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                className="text-gray-500 text-sm font-serif-elegant uppercase tracking-[0.3em] mb-4 block font-medium"
+              >
+                Core Competencies
+              </motion.span>
+              <h2 className="text-5xl md:text-7xl font-serif-elegant text-[#111111] leading-tight">
+                Services <br /><span className="text-gray-400 italic">& Solutions</span>
+              </h2>
+            </div>
+
+            <div className="space-y-4 flex-1">
+              {projects.map((p, i) => (
+                <motion.button
+                  key={i}
+                  onMouseEnter={() => setSelected(i)}
+                  className={`w-full text-left p-6 rounded-3xl transition-all duration-500 border flex items-center gap-6 group ${selected === i
+                      ? 'bg-white shadow-lg border-gray-100 scale-[1.02]'
+                      : 'bg-transparent border-transparent opacity-60 hover:opacity-100'
                     }`}
                 >
-                  <div>
-                    <span className="text-[#FF9800] text-sm font-semibold">{activeProject.tag}</span>
-                    <h3 className="text-2xl font-bold text-white mb-2 mt-1">
-                      {activeProject.title}
+                  <span className={`text-2xl transition-transform duration-500 ${selected === i ? 'scale-125' : ''}`}>
+                    {p.icon}
+                  </span>
+                  <div className="flex-1">
+                    <p className={`font-serif-elegant uppercase tracking-widest text-xs mb-1 ${selected === i ? 'text-gray-600' : 'text-gray-400'}`}>
+                      {p.tag}
+                    </p>
+                    <h3 className="text-2xl font-serif-elegant text-[#111111]">
+                      {p.title}
                     </h3>
                   </div>
+                  <motion.div
+                    animate={{ x: selected === i ? 0 : -20, opacity: selected === i ? 1 : 0 }}
+                    className="text-[#111111]"
+                  >
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </motion.div>
+                </motion.button>
+              ))}
+            </div>
+          </div>
 
-                  <p className="text-gray-300 leading-relaxed text-lg">
-                    {activeProject.description}
-                  </p>
-
-                  {activeProject.details && Array.isArray(activeProject.details) && (
-                    <div className="space-y-3">
-                      {activeProject.details.map((detail, idx) => (
-                        <p key={idx} className="text-gray-300 flex items-start gap-3">
-                          <span className="text-[#FF9800]">•</span>
-                          <span>{detail}</span>
-                        </p>
-                      ))}
-                    </div>
-                  )}
-
-                  {activeProject.features && (
-                    <div className="space-y-3">
-                      <p className="text-white font-semibold">What I built:</p>
-                      {activeProject.features.map((feature, idx) => (
-                        <p key={idx} className="text-gray-300 flex items-start gap-3">
-                          <span className="text-[#FF9800]">•</span>
-                          <span>{feature}</span>
-                        </p>
-                      ))}
-                    </div>
-                  )}
-
-                  {activeProject.learnings && (
-                    <div className="space-y-3">
-                      <p className="text-white font-semibold">Key Services:</p>
-                      {activeProject.learnings.map((learning, idx) => (
-                        <p key={idx} className="text-gray-300 flex items-start gap-3">
-                          <span className="text-[#FF9800]">•</span>
-                          <span>{learning}</span>
-                        </p>
-                      ))}
-                    </div>
-                  )}
-
-                  {activeProject.impact && (
-                    <div className="border-l-4 border-[#FF9800] pl-4">
-                      <p className="text-gray-300 text-sm mb-1">Impact</p>
-                      <p className="text-white font-medium">{activeProject.impact}</p>
-                    </div>
-                  )}
-
-                  {activeProject.details && !Array.isArray(activeProject.details) && (
-                    <p className="text-gray-300">{activeProject.details}</p>
-                  )}
-
-                  {activeProject.benefits && (
-                    <div className="border-l-4 border-[#FF9800] pl-4">
-                      <p className="text-gray-300 text-sm mb-1">Benefits</p>
-                      <p className="text-white font-medium">{activeProject.benefits}</p>
-                    </div>
-                  )}
-
+          {/* Right: Dynamic Showcase */}
+          <div className="lg:w-1/2 min-h-[500px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selected}
+                initial={{ opacity: 0, x: 20, scale: 0.98 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -20, scale: 0.98 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="h-full"
+              >
+                <div className="bg-white/60 p-10 md:p-14 h-full flex flex-col justify-between border border-gray-100 backdrop-blur-md rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
                   <div>
-                    <p className="text-sm text-gray-300 mb-2">Tech Stack</p>
-                    <p className="text-[#FF9800] font-medium">{activeProject.tech}</p>
+                    <h3 className="text-4xl md:text-5xl font-serif-elegant text-[#111111] leading-tight mb-6">
+                      {projects[selected].title}
+                    </h3>
+                    <p className="text-xl text-gray-600 leading-relaxed mb-10">
+                      {projects[selected].description}
+                    </p>
+
+                    <div className="space-y-4 mb-12">
+                      <p className="text-[#111111] font-serif-elegant font-medium text-xs uppercase tracking-widest">Technical Focus</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {projects[selected].details.map((d, idx) => (
+                          <div key={idx} className="flex items-center gap-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                            <span className="text-sm font-medium text-gray-500">{d}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
-                  {activeProject.cta && (
-                    <button
-                      onClick={() => {
-                        const footer = document.querySelector('footer');
-                        if (footer) {
-                          footer.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }}
-                      className="px-8 py-4 bg-gradient-to-r from-[#1A237E] to-[#0D1642] text-white font-bold rounded-xl hover:from-[#0D1642] hover:to-[#1A237E] transition-all duration-300 shadow-lg hover:shadow-[#1A237E]/50"
+                  <div className="pt-8 border-t border-gray-100 flex items-center justify-between">
+                    <div>
+                      <p className="text-gray-400 font-serif-elegant font-medium text-[10px] uppercase tracking-[0.3em] mb-2">Primary Stack</p>
+                      <p className="text-[#111111] font-serif-elegant font-medium text-lg tracking-wide uppercase">
+                        {projects[selected].tech}
+                      </p>
+                    </div>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => document.getElementById('consulting')?.scrollIntoView({ behavior: 'smooth' })}
+                      className="w-14 h-14 rounded-full bg-[#111111] flex items-center justify-center text-white shadow-lg hover:shadow-xl hover:bg-[#333333] transition-all"
                     >
-                      {activeProject.cta}
-                    </button>
-                  )}
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                    </motion.button>
+                  </div>
                 </div>
-              </div>
-
-              {/* Right Side - Infinite Scroll Showcase (Desktop Only) */}
-              <div
-                ref={scrollContainerRef}
-                className="hidden lg:block relative h-full overflow-hidden px-4"
-              >
-                <style jsx>{`
-                  @keyframes scroll-continuous {
-                    0% {
-                      transform: translateY(0);
-                    }
-                    100% {
-                      transform: translateY(-50%);
-                    }
-                  }
-
-                  .scroll-animation {
-                    animation: scroll-continuous 50s linear infinite;
-                  }
-
-                  .scroll-animation:hover {
-                    animation-play-state: paused;
-                  }
-                `}</style>
-
-                <div className="scroll-animation">
-                  {/* Render cards twice for seamless loop */}
-                  {[...projects, ...projects].map((project, index) => {
-                    const actualIndex = index % projects.length;
-                    const isActive = actualIndex === activeIndex;
-
-
-                    return (
-                      <div
-                        key={index}
-                        ref={(el) => {
-                          cardsRef.current[index] = el;
-                        }}
-                        className="mb-4 px-2 transition-all duration-700"
-                      >
-                        <div
-                          className={`bg-transparent border rounded-xl p-6 transition-all duration-700 ${isActive
-                            ? 'border-[#FF9800] opacity-100 scale-105'
-                            : 'border-[#ECEFF1] opacity-50 scale-100'
-                            }`}
-                        >
-                          <h3 className="text-xl font-semibold text-white mb-3">
-                            {project.title}
-                          </h3>
-                          <p className="text-sm text-[#FF9800] font-medium mb-3">
-                            {project.tag}
-                          </p>
-                          <p className="text-gray-300 leading-relaxed">
-                            {project.description}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>

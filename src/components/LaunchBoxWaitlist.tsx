@@ -104,28 +104,31 @@ const LaunchboxWaitlist: React.FC = () => {
   return (
     <>
       <Navigation />
-      <section className="min-h-screen pt-[65px] px-6 py-12 lg:py-20">
-        <div className="max-w-4xl mx-auto">
+      <section className="min-h-screen pt-[65px] px-6 py-12 lg:py-20 bg-[#fdfdfd] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-pink-50/60 to-transparent blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-orange-50/60 to-transparent blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="max-w-3xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              Join the Launchbox Waitlist
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif-elegant text-[#111] mb-6">
+              Join the <span className="text-gradient-elegant italic">Waitlist</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+            <p className="text-xl text-gray-600 font-serif-elegant max-w-2xl mx-auto leading-relaxed">
               Be first to get invites, resources, and early builds.
             </p>
           </div>
 
           {/* Form Container */}
-          <div className="bg-zinc-900/60 rounded-2xl border border-gray-800 p-8 lg:p-12">
+          <div className="bg-white rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 lg:p-12">
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Personal Information */}
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Your Information</h2>
+                <h2 className="text-2xl font-serif-elegant text-[#111] mb-2">Your Details</h2>
                 
                 <div>
-                  <label htmlFor="name" className="block text-sm text-gray-400 mb-2">
-                    Name <span className="text-red-500">*</span>
+                  <label htmlFor="name" className="block text-xs uppercase tracking-widest font-serif-elegant text-gray-500 mb-2">
+                    Name <span className="text-pink-500">*</span>
                   </label>
                   <input
                     id="name"
@@ -133,14 +136,14 @@ const LaunchboxWaitlist: React.FC = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                    className="w-full bg-gray-50/50 text-[#111] rounded-xl border border-gray-200 h-14 px-5 focus:outline-none focus:ring-1 focus:ring-[#111] focus:border-[#111] transition-all font-serif-elegant"
                     placeholder="Jane Doe"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm text-gray-400 mb-2">
-                    Email <span className="text-red-500">*</span>
+                  <label htmlFor="email" className="block text-xs uppercase tracking-widest font-serif-elegant text-gray-500 mb-2">
+                    Email <span className="text-pink-500">*</span>
                   </label>
                   <input
                     id="email"
@@ -148,21 +151,21 @@ const LaunchboxWaitlist: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                    className="w-full bg-gray-50/50 text-[#111] rounded-xl border border-gray-200 h-14 px-5 focus:outline-none focus:ring-1 focus:ring-[#111] focus:border-[#111] transition-all font-serif-elegant"
                     placeholder="jane@example.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm text-gray-400 mb-2">
-                    Phone <span className="text-gray-500 text-xs">(optional)</span>
+                  <label htmlFor="phone" className="block text-xs uppercase tracking-widest font-serif-elegant text-gray-500 mb-2">
+                    Phone <span className="text-gray-400 text-[10px] ml-1">(OPTIONAL)</span>
                   </label>
                   <input
                     id="phone"
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-zinc-900 text-white rounded-lg border border-gray-700 h-12 px-4 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 transition-all"
+                    className="w-full bg-gray-50/50 text-[#111] rounded-xl border border-gray-200 h-14 px-5 focus:outline-none focus:ring-1 focus:ring-[#111] focus:border-[#111] transition-all font-serif-elegant"
                     placeholder="(555) 555-5555"
                   />
                 </div>
@@ -174,9 +177,9 @@ const LaunchboxWaitlist: React.FC = () => {
                     id="newsletter-waitlist"
                     checked={subscribeNewsletter}
                     onChange={(e) => setSubscribeNewsletter(e.target.checked)}
-                    className="mt-1 w-5 h-5 text-red-600 bg-zinc-900 border-gray-700 rounded focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-zinc-900 cursor-pointer"
+                    className="mt-1 w-5 h-5 text-[#111] bg-white border-gray-300 rounded focus:ring-2 focus:ring-[#111] cursor-pointer"
                   />
-                  <label htmlFor="newsletter-waitlist" className="text-gray-300 cursor-pointer text-sm">
+                  <label htmlFor="newsletter-waitlist" className="text-gray-600 cursor-pointer font-serif-elegant text-sm tracking-wide">
                     I&apos;d also like to sign up for the newsletter
                   </label>
                 </div>
@@ -184,23 +187,23 @@ const LaunchboxWaitlist: React.FC = () => {
 
               {/* Success/Error Messages */}
               {submitSuccess && (
-                <div className="p-4 rounded-lg bg-green-900/30 border border-green-600/50">
-                  <p className="text-green-400 font-medium">
+                <div className="p-4 rounded-xl bg-green-50 border border-green-200">
+                  <p className="text-green-700 font-serif-elegant text-sm font-medium">
                     ✓ Successfully joined the waitlist! You&apos;ll receive updates about Launchbox launches and early access.
                   </p>
                 </div>
               )}
 
               {submitError && (
-                <div className="p-4 rounded-lg bg-red-900/30 border border-red-600/50">
-                  <p className="text-red-400 font-medium">
+                <div className="p-4 rounded-xl bg-red-50 border border-red-200">
+                  <p className="text-red-600 font-serif-elegant text-sm font-medium">
                     {submitError}
                   </p>
                 </div>
               )}
 
               {/* Submit Button */}
-              <div className="pt-4">
+              <div className="pt-6">
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -209,32 +212,31 @@ const LaunchboxWaitlist: React.FC = () => {
                       trackButtonClick('join_waitlist', 'waitlist_page');
                     }
                   }}
-                  className="w-full px-8 py-4 text-white font-bold rounded-xl shadow-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed text-lg"
-                  style={{ backgroundColor: '#ea580c' }}
+                  className="w-full h-14 bg-[#111] text-white uppercase tracking-widest text-sm font-serif-elegant rounded-full shadow-md hover:shadow-lg hover:bg-[#333] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Joining Waitlist...' : 'Join the Waitlist'}
                 </button>
-                <p className="text-xs text-gray-500 text-center mt-4">
+                <p className="text-xs text-gray-500 font-serif-elegant text-center mt-6">
                   By joining, you&apos;ll be notified when Launchbox launches and get early access to resources.
                   <br />
-                  By submitting this form, you agree to our{' '}
-                  <a href="/privacy" className="text-red-500 hover:text-red-400 underline" target="_blank" rel="noopener noreferrer">
+                  You agree to our{' '}
+                  <a href="/privacy" className="text-gray-800 hover:text-[#111] underline transition-colors" target="_blank" rel="noopener noreferrer">
                     Privacy Policy
                   </a>
-                  {' '}and consent to being contacted for marketing purposes.
+                  {' '}and consent to being contacted.
                 </p>
               </div>
             </form>
           </div>
 
           {/* Additional Info */}
-          <div className="mt-12 text-center text-gray-400">
-            <p className="mb-2">Questions? Email us at</p>
+          <div className="mt-12 text-center text-gray-500 font-serif-elegant">
+            <p className="mb-2 uppercase tracking-widest text-xs">Questions? Email me at</p>
             <a 
-              href="mailto:ian@ianmcdonald.ai" 
-              className="text-red-500 hover:text-red-400 underline"
+              href="mailto:contact@arielsantos.space" 
+              className="text-[#111] hover:text-orange-500 underline transition-colors text-lg"
             >
-              ian@ianmcdonald.ai
+              contact@arielsantos.space
             </a>
           </div>
         </div>
@@ -243,5 +245,5 @@ const LaunchboxWaitlist: React.FC = () => {
   );
 };
 
-export default LaunchboxWaitlist;
+export default LaunchboxWaitlist;;
 
